@@ -11,11 +11,11 @@ Installation on linux Ubuntu 12.10
    * reboot your machine (to properly start up the kernel modules)
    * then execute these instruction to put the vagrant file on /home/cortext 
 
-	$ mkdir ~/cortext
-	$ cd ~/cortext
-	$ git clone git@github.com:cortext/box.git 
-	$ vagrant init cortext-box 
-	$ vagrant up
+    $ mkdir ~/cortext
+    $ cd ~/cortext
+    $ git clone git@github.com:cortext/box.git 
+    $ vagrant init cortext-box 
+    $ vagrant up
 
 That's it !
 * The document root for apache is  ~/cortext/
