@@ -25,7 +25,7 @@ That's it !
 Usage
 -----
   * The document root for apache is  ~/cortext/
-  * The VM apache web server is accessible at http://localhost:3000
+  * The VM apache web server is accessible at http://localhost:8080
   * Use `vagrant ssh` to log into the VM
   * Use `vagrant halt` to shut it down
 
