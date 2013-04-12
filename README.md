@@ -45,6 +45,12 @@ To install cortext projects, execute the folowing instructions (replace `<projec
 
   $ cd src/cortext/<project name>/
   $ composer update
+
+Then you will have to edit your /etc/hosts file and add the following line (assuming you did not change the vagrant.conf file) : 
+
+  $ 192.168.100.100 cortext.dev ct-auth.dev
+
+The projects are now available at http://cortext.dev (web root) and http://ct-auth.dev (cortext auth)
   
 This should install all dependencies you need to run the project.
 
