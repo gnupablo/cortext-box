@@ -1,9 +1,12 @@
 class apache {
+  $packages = ["libapache2-mod-php5","libapache2-mod-wsgi"]
+
   package { "apache2":
     ensure => present,
     require => Exec["apt-get update"]
   }
-  package {"libapache2-mod-php5":
+
+  package {$packages:
     ensure => present,
     require => Package["apache2"]
   }
@@ -16,16 +19,16 @@ class apache {
     require => Package["apache2"]
   }
 
-  file { "/etc/apache2/sites-available/vagrant_webroot":
+  file { "/etc/apache2/sites-available/cortext":
     ensure => present,
-    source => "/vagrant/manifests/vagrant_webroot",
+    source => "/vagrant/puppet/manifests/cortext.vhost.dist",
     require => Package["apache2"]
   }
 
-  file { "/etc/apache2/sites-enabled/vagrant_webroot":
+  file { "/etc/apache2/sites-enabled/cortext":
     ensure => link,
-    target => "/etc/apache2/sites-available/vagrant_webroot",
-    require => File["/etc/apache2/sites-available/vagrant_webroot"]
+    target => "/etc/apache2/sites-available/cortext",
+    require => File["/etc/apache2/sites-available/cortext"]
   }
 
  file {"/etc/apache2/sites-enabled/000-default":
@@ -39,7 +42,7 @@ class apache {
     require => Package["apache2"],
     subscribe => [
       File["/etc/apache2/mods-enabled/rewrite.load"],
-      File["/etc/apache2/sites-available/vagrant_webroot"]
+      File["/etc/apache2/sites-available/cortext"]
     ],
   }
 }

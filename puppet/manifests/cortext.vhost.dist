@@ -1,7 +1,7 @@
 <VirtualHost *:80>
-  ServerName app.local
-  DocumentRoot /vagrant/project/webroot
-  <Directory /vagrant/project/webroot>
+  ServerName cortext.dev
+  DocumentRoot /vagrant/src
+  <Directory /vagrant/src>
     DirectoryIndex index.php
     AllowOverride All
     Order allow,deny
