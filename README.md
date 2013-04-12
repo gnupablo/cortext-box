@@ -9,7 +9,8 @@ Installation on linux Ubuntu 12.10
    * download and install Vagrant 1.1.5 package here http://downloads.vagrantup.com/tags/v1.1.5
    * download and install Virtualbox 4.2 package here https://www.virtualbox.org/wiki/Downloads
    * reboot your machine (to properly start up the kernel modules)
-   * then execute these instruction to put the vagrant file on /home/cortext 
+
+Then execute these instructions to put the vagrant file on /home/cortext  :
 
     $ mkdir ~/cortext
     $ cd ~/cortext
