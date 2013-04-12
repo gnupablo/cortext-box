@@ -19,5 +19,10 @@ Then execute these instructions to put the vagrant file on /home/cortext  :
     $ vagrant up
 
 That's it !
-* The document root for apache is  ~/cortext/
-* The VM is accessible in http://localhost:3000
+
+Usage
+-----
+  * The document root for apache is  ~/cortext/
+  * The VM apache web server is accessible at http://localhost:3000
+  * Use `vagrant ssh` to log into the VM
+  * Use `vagrant halt` to shut it down
