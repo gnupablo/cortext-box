@@ -26,3 +26,4 @@ Usage
   * The VM apache web server is accessible at http://localhost:3000
   * Use `vagrant ssh` to log into the VM
   * Use `vagrant halt` to shut it down
+
