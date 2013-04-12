@@ -29,3 +29,22 @@ Usage
   * Use `vagrant halt` to shut it down
   * You can modify the parameters in the file ~/cortext-box/vagrant.conf
 
+#Run Cortext projects
+The /src/cortext/ directory contains remote references to cortext projects. In order to run it properly you must install a few things.
+Current Projects (added as git submodules) :
+  * `/cortext-auth` : Cortext oAuth server and user manager
+
+##Requirements
+  * php5
+  * curl
+  * git
+  * composer (http://getcomposer.org)
+
+##Install
+To install cortext projects, execute the folowing instructions (replace `<project name>` by the name of the directory)
+
+  $ cd src/cortext/<project name>/
+  $ composer update
+  
+This should install all dependencies you need to run the project.
+

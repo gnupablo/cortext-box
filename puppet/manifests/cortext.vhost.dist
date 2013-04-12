@@ -1,7 +1,19 @@
 <VirtualHost *:80>
   ServerName cortext.dev
-  DocumentRoot /vagrant/src
-  <Directory /vagrant/src>
+  DocumentRoot /vagrant/src/cortext
+  <Directory /vagrant/src/cortext>
+    DirectoryIndex index.php
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+  </Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+  RewriteEngine on
+  ServerName ct-auth.dev
+  DocumentRoot /vagrant/src/cortext/cortext-auth/server/web
+  <Directory /vagrant/src/cortext/cortext-auth/server/web>
     DirectoryIndex index.php
     AllowOverride All
     Order allow,deny
