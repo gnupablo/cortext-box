@@ -5,11 +5,14 @@ class php {
     ensure => present,
     require => Exec["apt-get update"]
   }
-}
-
-class {"composer":
-  target_dir      => '/usr/local/bin',
-  composer_file   => 'composer',
-  download_method => 'curl', # download methods are curl or wget
-  logoutput       => false
+  file {'/etc/php5/cli/conf.d/suhosin.ini':
+      ensure     =>   present,
+      content    =>   '/vagrant/puppet/modules/php/suhosin.ini',
+      require    =>   Package[$packages]
+  }
+  file {'/etc/php5/cli/conf.d/php.ini':
+      ensure     =>   present,
+      content    =>   '/vagrant/puppet/modules/php/php.ini',
+      require    =>   Package[$packages]
+  }
 }

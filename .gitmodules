@@ -4,3 +4,9 @@
 [submodule "src/cortext/cortext-assets"]
 	path = src/cortext/cortext-assets
 	url = git@github.com:cortext/cortext-assets.git
+[submodule "src/cortext/cortext-manager"]
+	path = src/cortext/cortext-manager
+	url = git@github.com:cortext/cortext-manager.git
+[submodule "src/cortext/cortext-lib-symfony"]
+	path = src/cortext/cortext-lib-symfony
+	url = git@github.com:cortext/cortext-lib-symfony.git

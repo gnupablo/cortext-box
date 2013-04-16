@@ -8,9 +8,8 @@ include bootstrap
 include other
 include apache
 include php
-include cortext
 include php::pear
 include php::pecl
+include php::composer
 include mysql
-include composer
-
+include cortext
