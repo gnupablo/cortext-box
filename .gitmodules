@@ -4,3 +4,6 @@
 [submodule "src/cortext/cortext-auth"]
 	path = src/cortext/cortext-auth
 	url = git@github.com:cortext/cortext-auth.git
+[submodule "src/cortext/cortext-assets"]
+	path = src/cortext/cortext-assets
+	url = git@github.com:cortext/cortext-assets.git
