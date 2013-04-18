@@ -3,16 +3,16 @@ class php::composer {
     require php
     #install composer
     exec {'composer_install':
-            command   =>'curl -sS https://getcomposer.org/installer | php',
+            command   => 'curl -sS https://getcomposer.org/installer | php',
             require   => [Package["curl"], Package["php5"]],
             cwd       => "${home_dir}",
-            creates   =>"${home_dir}/composer.phar"
+            creates   => "${home_dir}/composer.phar"
+
     }
     #rename it composer and make it available to any user
-    exec { 'composer':      
-            command   =>'sudo mv ${home_dir}/composer.phar /usr/local/bin/composer',
-            cwd       => "${home_dir}",
-            creates   =>"/usr/local/bin/composer",
-            require   =>Exec['composer_install']
+    file { '/usr/local/bin/composer':
+        ensure   => link,
+        target   => "${home_dir}/composer.phar",
+        require  => Exec["composer_install"]
     }
 }

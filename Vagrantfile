@@ -27,6 +27,9 @@ Vagrant.configure("2") do |config|
      vb.customize ["modifyvm", :id, "--memory", "1024"]
    end
   #config.vm.share_folder $vhost, "/srv/web/vhosts/" + $vhost + ".dev", "../", :nfs => $use_nfs
+  #config.vm.provider "virtualbox" do |v|
+  #  v.gui = true
+  #end
 
   # Puppet provisioner
   config.vm.provision :puppet do |puppet|

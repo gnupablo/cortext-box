@@ -6,10 +6,11 @@ Exec {
 
 include bootstrap
 include other
-include apache
+#include apache
+include nginx
 include php
 include php::pear
-include php::pecl
+#include php::pecl
 include php::composer
 include mysql
 include cortext

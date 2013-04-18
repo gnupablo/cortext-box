@@ -9,6 +9,6 @@ class other {
                 Welcome to your Cortext Box !
                 ==============================
                 You\'re running a Debian Squeeze 64bit.
-                Comments welcome on https://github.com/cortext/box\n"
+                Comments welcome on https://github.com/cortext/cortext-box\n"
   }
 }
