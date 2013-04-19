@@ -10,7 +10,7 @@ include other
 include nginx
 include php
 include php::pear
-#include php::pecl
+include php::pecl
 include php::composer
 include mysql
 include cortext

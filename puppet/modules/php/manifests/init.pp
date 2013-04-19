@@ -5,14 +5,16 @@ class php {
     ensure => present,
     require => Exec["apt-get update"]
   }
-  file {'/etc/php5/cli/conf.d/suhosin.ini':
+  
+  file {'/etc/php5/cli/suhosin.ini':
       ensure     =>   present,
-      content    =>   'puppet:///modules/php/suhosin.ini',
+      source     =>   'puppet:///modules/php/suhosin.ini',
       require    =>   Package[$packages]
   }
-  file {'/etc/php5/cli/conf.d/php.ini':
+  file {'/etc/php5/cli/php.ini':
       ensure     =>   present,
-      content    =>   'puppet:///modules/php/php.ini',
+      source    =>   'puppet:///modules/php/php.ini',
       require    =>   Package[$packages]
   }
+
 }

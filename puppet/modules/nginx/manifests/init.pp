@@ -1,14 +1,18 @@
 #nginx puppet
 class nginx {
-  package { 'nginx':
-    ensure  => latest,
-    require => Exec["apt-get update"]
+  # package { 'nginx':
+  #   ensure  => latest,
+  #   require => Exec["apt-get update"]
+  # }
+  exec {"nginx_backports":
+    command  => "apt-get install -y -t squeeze-backports nginx",
+    require  => Exec['apt-get update']
   }
 
   file { '/etc/nginx/sites-available/default':
     ensure   => present,
     source   => "puppet:///modules/nginx/vhost.cortext.dist",
-    require  => Package["nginx"]
+    require  => Exec ["nginx_backports"]
   }
 
   file { "/etc/nginx/sites-enabled/default":
@@ -20,7 +24,7 @@ class nginx {
   # starts the nginx service once the packages installed, and monitors changes to its configuration files and reloads if nesessary
   service { "nginx":
     ensure    => running,
-    require   => Package["nginx"],
+    require   => Exec ["nginx_backports"],
     subscribe => File["/etc/nginx/sites-enabled/default"]
   }
 }
