@@ -9,6 +9,12 @@ Installation on linux Ubuntu (12.04+)
 You will need 1Go of free disk space and 1Go of free RAM, in order to run the VM.
 
    * download and install Vagrant 1.1.5 package here http://downloads.vagrantup.com/tags/v1.1.5
+   * install the linux kernel headers
+   
+```
+sudo apt-get install linux-headers-`uname -r`
+```
+
    * download and install Virtualbox 4.2 package here https://www.virtualbox.org/wiki/Downloads
    * reboot your machine (to properly start up the kernel modules)
 
