@@ -57,6 +57,7 @@ To be commited :
    * http://192.168.100.100:29200 `assets`
    * http://192.168.100.100:29300 `manager`
    * http://192.168.100.100:29400 `dashboard`
+   * http://192.168.100.100:29500 `graphs`
 
 # Apache vhost
 If you want to do things with apache instead of nginx, you can change the corresponding line in puppet/manifests/default.pp : 

@@ -10,3 +10,6 @@
 [submodule "src/cortext/cortext-lib-symfony"]
 	path = src/cortext/cortext-lib-symfony
 	url = git@github.com:cortext/cortext-lib-symfony.git
+[submodule "src/cortext/cortext-graphs"]
+	path = src/cortext/cortext-graphs
+	url = git@github.com:cortext/cortext-graphs.git
