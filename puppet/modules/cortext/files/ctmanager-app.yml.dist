@@ -1,0 +1,45 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/11-App
+
+# default values
+
+#all:
+all:
+ api:
+   key: c0rtext
+   #list all the conumers ids for witch no "accept" required in oAuth external authentication
+   consumer_whitelist_ids: [1,2]
+ corpus:
+  allowed_extensions: "txt|isi|db|xml|xls|zip|csv"
+  allowed_extensions_for_scripts: "db"
+ path:
+   progressFileName: progress.yml
+   projects: /projects
+   collab: http://localhost/cortext-projects
+   assets: http://localhost:29200
+   projects_webdir: http://projects.cortext.org
+   projects_webdir_local: http://localhost:8888/cortext/cortext/manager
+# sf_guard_plugin:
+#  success_signin_url: dashboard
+ assets_token: f11e5766e15df91480dcd59ede0dea4794289432
+ sf_media_browser:
+    assets_list:
+      js:  [/js/jquery-1.7.2.min, /js/jquery-ui-1.8.5.custom.min, /sfMediaBrowserPlugin/js/list.jquery.js,/sfMediaBrowserPlugin/js/WindowManager.js]
+      css: [/sfMediaBrowserPlugin/css/list.css]
+ sfForkedApply:
+    from:
+      email: "manager@cortext.fr"
+      fullname: "Cortext Manager"
+ recaptcha:
+   enabled:        false
+   #cortext.net
+   public_key:     6LeWvdASAAAAAORExCywO5pnpsElngLnb4puqSvU
+   private_key:    6LeWvdASAAAAAFu5sxoOAdjAeGacz6GvUYMrhfaw
+   #ctmanager.dev
+   #public_key:     6Lf2StESAAAAAACX_rgatLYlIUvvAx5L6ir2cPKO
+   #private_key:    6Lf2StESAAAAAItxFQEJw-umTvSZe0l6t2qeCms8
+ sfApplyPlugin:
+    from:
+      email: "manager@cortext.fr"
+      fullname: "Cortext Manager"
+

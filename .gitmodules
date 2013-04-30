@@ -13,3 +13,9 @@
 [submodule "src/cortext/cortext-graphs"]
 	path = src/cortext/cortext-graphs
 	url = git@github.com:cortext/cortext-graphs.git
+[submodule "src/cortext/cortext-methods"]
+	path = src/cortext/cortext-methods
+	url = git@github.com:cortext/cortext-methods.git
+[submodule "src/cortext/cortext"]
+	path = src/cortext/cortext
+	url = git@github.com:cortext/cortext.git

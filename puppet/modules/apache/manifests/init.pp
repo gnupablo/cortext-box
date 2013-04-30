@@ -21,13 +21,13 @@ class apache {
 
   file { "/etc/apache2/sites-available/cortext":
     ensure   => present,
-    source   => "puppet:///manifests/cortext.vhost.dist",
+    source   => "puppet:///modules/apache/cortext.vhost.dist",
     require  => Package["apache2"]
   }
 
   file { "/etc/apache2/envvars":
     ensure    => present,
-    source    => "puppet:///manifests/apache-envvars.dist",
+    source    => "puppet:///modules/apache/apache-envvars.dist",
     require   => Package["apache2"],
     mode      => 0644,
     group     => 'root',

@@ -1,7 +1,7 @@
 #source.list
 deb http://mirror.univ-mlv.fr/debian/ squeeze main non-free contrib
 #deb http://www.backports.org/debian squeeze-backports main contrib non-free
-#deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
+deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
 
 #deb http://ftp2.fr.debian.org/debian/ squeeze main contrib non-free
 deb-src http://ftp2.fr.debian.org/debian/ squeeze main contrib non-free

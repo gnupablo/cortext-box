@@ -21,7 +21,7 @@ server {
 	listen 80;
 	listen [::]:80 ipv6only=on default_server;
 
-	root /vagrant/src/cortext;
+	root /vagrant/src/cortext/cortext/manager/web;
 	index index.php index.html index.htm;
 
 	# Make site accessible from http://localhost/
@@ -30,9 +30,13 @@ server {
 	location / {
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.
-		try_files $uri $uri/ /index.html;
+		try_files $uri $uri/ /index.html /index.php?$args;
 		# Uncomment to enable naxsi on this location
 		# include /etc/nginx/naxsi.rules
+		# nginx configuration
+
+        
+        
 	}
 
 	location /doc/ {
@@ -59,24 +63,33 @@ server {
 
 	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
 	#
-	location ~ \.php$ {
-	#	fastcgi_split_path_info ^(.+\.php)(/.+)$;
-	#	# NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
-	#
-	#	# With php5-cgi alone:
-	#	fastcgi_pass 127.0.0.1:9000;
-	#	# With php5-fpm:
-		fastcgi_pass unix:/var/run/php5-fpm.sock;
-		fastcgi_index index.php;
-		include fastcgi_params;
-	}
+	# location ~ \.php$ {
+	# #	fastcgi_split_path_info ^(.+\.php)(/.+)$;
+	# #	# NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+	# #
+	# #	# With php5-cgi alone:
+	# #	fastcgi_pass 127.0.0.1:9000;
+	# #	# With php5-fpm:
+	# 	fastcgi_pass unix:/var/run/php5-fpm.sock;
+	# 	fastcgi_index index.php;
+	# 	include fastcgi_params;
+	# }
+
+    location ~ ^/(index|frontend|frontend_dev|backend|backend_dev)\.php$ {
+       include fastcgi_params;
+       fastcgi_split_path_info ^(.+\.php)(/.+)$;
+       fastcgi_param PATH_INFO $fastcgi_path_info;
+       fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+       fastcgi_param HTTPS off;
+       fastcgi_pass unix:/var/run/php5-fpm.sock;
+     }
 
 	# deny access to .htaccess files, if Apache's document root
 	# concurs with nginx's one
 	#
-	#location ~ /\.ht {
-	#	deny all;
-	#}
+	location ~ /\.ht {
+		deny all;
+	}
 }
 
 

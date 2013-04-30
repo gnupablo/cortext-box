@@ -17,8 +17,9 @@ sudo apt-get install linux-headers-`uname -r`
 
    * download and install Virtualbox 4.2 package here https://www.virtualbox.org/wiki/Downloads
    * reboot your machine (to properly start up the kernel modules)
+   * you may have to change the bios configuration and turn the hardware virtualization on, in order to run virtual machines (see for example http://blog.darwin-it.nl/2012/04/bios-settings-for-virtualbox.html for details )
 
-Then execute these instructions to put the vagrant file on /home/cortext  :
+Then execute these instructions to put the vagrant file on /home/<user>/cortext-box :
 
     $ mkdir ~/cortext-box
     $ cd ~/cortext-box
@@ -52,12 +53,14 @@ To be commited :
 
  By default, the IP `192.168.100.100` redirects to /src/cortext and any php is interpreted by *nginx* (apache config is also available in the `puppet/modules/apache` subfolder, see bellow)
 
- The diferent projects are accessible directly with thess special ports :
-   * http://192.168.100.100:29100 `auth`
-   * http://192.168.100.100:29200 `assets`
-   * http://192.168.100.100:29300 `manager`
-   * http://192.168.100.100:29400 `dashboard`
-   * http://192.168.100.100:29500 `graphs`
+ The diferent projects are accessible directly with thess special ports (default 80 is set to dashboard for now) :
+   * http://192.168.100.100       -> `auth + manager + dashboard / v2-alpha`
+   * http://192.168.100.100:29100 -> `auth`
+   * http://192.168.100.100:29200 -> `assets`
+   * http://192.168.100.100:29300 -> `manager v2`   
+   * http://192.168.100.100:29400 -> `dashboard v2`      
+   * http://192.168.100.100:29500 -> `graphs`
+
 
 # Apache vhost
 If you want to do things with apache instead of nginx, you can change the corresponding line in puppet/manifests/default.pp : 

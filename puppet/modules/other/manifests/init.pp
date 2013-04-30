@@ -1,5 +1,5 @@
 class other {
-  $packages = ["curl", "vim", "htop","git","nano"]
+  $packages = ["curl", "vim", "htop","git","tree","nano","subversion"]
   package { $packages:
     ensure => present,
     require => Exec["apt-get update"]

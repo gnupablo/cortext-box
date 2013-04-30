@@ -16,3 +16,6 @@ deb http://ftp.debian.org/debian squeeze-updates main non-free contrib
 
 #php5.4
 deb http://packages.dotdeb.org/ squeeze-php54 all
+
+#mongo-10gen
+deb http://downloads-distro.mongodb.org/repo/debian-sysvinit dist 10gen

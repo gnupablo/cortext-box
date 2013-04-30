@@ -27,10 +27,21 @@ class cortext {
 
     $dir='/vagrant/src/cortext'
     file {$dir:
-    ensure => directory,
-    require => File['/usr/local/bin/composer']
+        ensure => directory,
+        require => File['/usr/local/bin/composer']
     }
 
     #install and run projects
     ctrun{['cortext-auth','cortext-assets','cortext-manager','cortext-graphs']:}
+
+    #ct manager V1
+    file { "/vagrant/src/cortext/cortext/manager/config/databases.yml":
+        ensure   => present,
+        source   => "puppet:///modules/cortext/ctmanager-databases.yml.dist"
+    }
+
+    file { "/vagrant/src/cortext/cortext/manager/apps/frontend/config/app.yml":
+        ensure   => present,
+        source   => "puppet:///modules/cortext/ctmanager-app.yml.dist"
+    }
 }
