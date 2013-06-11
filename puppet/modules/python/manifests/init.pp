@@ -20,7 +20,7 @@ class python {
     require => Exec["apt-get update"]
   }
 
-  #install dependcies required to build certain python modules
+  #install dependencies required to build certain python modules
   exec { "install_deps":
     command => "apt-get -f -y install",
     require => Exec['apt-get update'],
@@ -39,6 +39,12 @@ class python {
         refreshonly => true,
         require => Package["python-setuptools"],
         subscribe => Package["python-setuptools"]
+    }
+
+  #supervisor
+  exec { 'easy_install supervisor':
+        path => "/usr/local/bin:/usr/bin:/bin",
+        require => Package["python-setuptools"]
     }
 
   ct_python_install{["BeautifulSoup","Pygments","Pyste","Tenjin","Whoosh","argparse","chardet","httpie","iconv","jsonpickle","matplotlib","networkx","nltk","nose","numpy","pytz","requests","wsgiref","wxPython"]:}

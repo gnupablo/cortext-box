@@ -44,4 +44,22 @@ class cortext {
         ensure   => present,
         source   => "puppet:///modules/cortext/ctmanager-app.yml.dist"
     }
+    #dashboard settings
+    file { "/vagrant/src/cortext/cortext/manager/web/js/dashboard/dashboard-config.js.dist":
+        ensure   => present,
+        source   => "puppet:///modules/cortext/dashboard-config.js.dist"
+    }
+
+    # workers
+    # setting up supervisor
+    file { '/etc/supervisord.conf':
+        ensure   => present,
+        source   => "puppet:///modules/python/supervisord.conf.dist"
+    }
+
+    # launch mcp and workers
+    exec {'supervisord -q /vagrant/src/cortext/cortext/manager/mcp/log -d /vagrant/src/cortext/cortext/manager/mcp':
+            path      => ["/usr/bin","/usr/local/bin"],
+            require   => File['/etc/supervisord.conf']
+        }
 }

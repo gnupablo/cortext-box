@@ -60,6 +60,7 @@ To be commited :
    * http://192.168.100.100:29300 -> `manager v2`   
    * http://192.168.100.100:29400 -> `dashboard v2`      
    * http://192.168.100.100:29500 -> `graphs`
+   * http://192.168.100.100:29500 -> `supervisor (workers status)`
 
 
 # Apache vhost

@@ -15,6 +15,7 @@ Vagrant.configure("2") do |config|
   # Box IP
   config.vm.network :private_network, ip: $ip
   
+  config.vm.network :forwarded_port, guest: 29001, host: 29001 #supervisor
   config.vm.network :forwarded_port, guest: 29100, host: 29100 #auth
   config.vm.network :forwarded_port, guest: 29200, host: 29200 #assets
   config.vm.network :forwarded_port, guest: 29300, host: 29300 #manager
