@@ -23,7 +23,7 @@ Then execute these instructions to put the vagrant file on /home/<user>/cortext-
 
     $ mkdir ~/cortext-box
     $ cd ~/cortext-box
-    $ git clone git@github.com:cortext/cortext-box.git
+    $ git clone --recursive git@github.com:cortext/cortext-box.git
     $ vagrant up
 
 That's it !
