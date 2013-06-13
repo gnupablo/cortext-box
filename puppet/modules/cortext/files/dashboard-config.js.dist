@@ -1,0 +1,14 @@
+/**
+ * cortext dashboard beta - default settings object
+ * @author Philippe Breucker
+ * @copyright 2013
+ */
+
+var dashboardConfig = {
+    url : {
+        Assets: "http://192.168.100.100:29200",
+        Manager: "http://192.168.100.100"
+    }
+};
+
+ 

@@ -1,0 +1,26 @@
+<?php
+/**cortext assets
+ * config file
+ */
+
+
+
+//constants
+define('CONS_KEY', '01234');
+define('CONS_SECRET', '56789');
+define('MANAGER_TOKEN','f11e5766e15df91480dcd59ede0dea4794289432');
+define('CORPUS_EXTENSIONS','txt|csv|zip|db|html|htm');
+define('ALL_DOCUMENTS','');
+define('RESERVED_FILENAMES','MAIN_READLOCK|MAIN_WRITELOCK|log.txt|\.pkl|\.yml|\.yaml|^_.*');
+//urls
+//define('URL_OAUTH_SERVER',"http://auth.cortext.org");
+define('URL_OAUTH_SERVER','http://192.168.100.100');
+//define('URL_MANAGER','http://managerdev.cortext.org');
+define('URL_MANAGER','http://192.168.100.100');
+
+//database
+define('DB_DRIVER', 'pdo_mysql');
+define('DB_HOST', 'localhost');
+define('DB_DBNAME', 'ctmanager');
+define('DB_USER', 'root');
+define('DB_PASSWORD', 'c0rt3xt');

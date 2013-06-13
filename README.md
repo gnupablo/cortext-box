@@ -80,7 +80,9 @@ FAQ
     $ vagrant destroy
     $ vagrant remove <name_of_the_box> virtualbox
 
-This way the box will completly be removed from your system, including the virtual drives associate with it. You can also remove the `.vagrant` folder from the project root directory to remove all traces of vagrant. When you want to start again, you juste have to `vagrant up` and you're ready to go. (See http://docs.vagrantup.com for details)
+This way the box will completly be removed from your system, including the virtual drives associate with it.
+You can also remove the `.vagrant` folder from the project root directory to remove all traces of vagrant. 
+When you want to start again, you juste have to `vagrant up` and you're ready to go. (See http://docs.vagrantup.com for details)
 
 > How do I know the boxes I have installed ?
     $ `vagrant box list`
