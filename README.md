@@ -11,6 +11,7 @@ Cortext Box
 Then execute these instructions to put the vagrant file on /home/<user>/cortext-box :
 
     $ mkdir ~/boxes
+    $ cd ~/boxes
     $ git clone --recursive git@github.com:cortext/cortext-box.git
     $ cd cortext-box
     $ vagrant up
