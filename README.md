@@ -1,29 +1,18 @@
 Cortext Box
 ===========
 
-Installation on linux Ubuntu (12.04+)
--------------------------------------
+## install vagrant
 
-> note : do **not** install the repo versions : you may have some issues whith them
+- [install vagrant on ubuntu](https://github.com/cortext/cortext-box/wiki/vagrant:-installation-on-ubuntu)
+- [install vagrant on osx]()
 
-You will need 1Go of free disk space and 1Go of free RAM, in order to run the VM.
-
-   * download and install Vagrant 1.1.5 package here http://downloads.vagrantup.com/tags/v1.1.5
-   * install the linux kernel headers
-   
-```
-sudo apt-get install linux-headers-`uname -r`
-```
-
-   * download and install Virtualbox 4.2 package here https://www.virtualbox.org/wiki/Downloads
-   * reboot your machine (to properly start up the kernel modules)
-   * you may have to change the bios configuration and turn the hardware virtualization on, in order to run virtual machines (see for example http://blog.darwin-it.nl/2012/04/bios-settings-for-virtualbox.html for details )
+## bootstrap the cortext-box !
 
 Then execute these instructions to put the vagrant file on /home/<user>/cortext-box :
 
-    $ mkdir ~/cortext-box
-    $ cd ~/cortext-box
+    $ mkdir ~/boxes
     $ git clone --recursive git@github.com:cortext/cortext-box.git
+    $ cd cortext-box
     $ vagrant up
 
 That's it !
