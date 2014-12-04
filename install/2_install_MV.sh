@@ -49,14 +49,12 @@ sudo echo "alias l='ls \$LS_OPTIONS -l'" >> /home/vagrant/.bash_aliases
 #sudo echo "alias la='ls $LS_OPTIONS -lA'" >> /root/.bashrc
 #sudo echo "alias l='ls $LS_OPTIONS -l'" >> /root/.bashrc
 
-echo -e "\e[1;32m=== Ajout des noms de domaines locaux à /etc/hosts\e[0m"
-sudo echo "127.0.0.1	auth.cortext.dev" >> /etc/hosts
-sudo echo "127.0.0.1	assets.cortext.dev" >> /etc/hosts
-sudo echo "127.0.0.1	cortext.dev" >> /etc/hosts
-sudo echo "127.0.0.1	www.cortext.dev" >> /etc/hosts
-
 echo -e "\e[1;32m=== Appels des scripts d'installation des modules Cortext\e[0m"
 cd /vagrant
 . 3_install_Auth.sh
 . 4_install_Assets.sh
 . 5_install_Manager.sh
+
+echo -e "\e[1;32m=== Il ne reste plus qu'à configurer les redirections locales\e[0m"
+echo -e "\e[1;31mExecuter avec les droits root ./add_etc_hosts.sh\e[0m"
+echo -e "\e[1;31msur la machine virtuelle et sur la machine physique\e[0m"
