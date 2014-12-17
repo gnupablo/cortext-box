@@ -1,60 +1,83 @@
 #/bin/sh
 
+if [ `id -u -n` != "root" ]
+then
+   echo -e "\e[1;31mVous devez être root pour executer cette application\e[0m"
+   exit
+elif [ "$EUID" != 0 ]
+then
+   echo "Bien essayé le sudo, mais on a dit root, donc su ou sudo su d'abord."
+   exit
+fi
+
 echo -e "\e[1;32m=== Script d'installation de la machine virtuelle\e[0m"
 
-# A executer sur la machine virtuelle une fois qu'elle aura été initialisée
+# A executer avec les droits root sur la machine virtuelle une fois qu'elle aura été initialisée
 
 echo -e "\e[1;32m=== Mise à jour de la machine virtuelle\e[0m"
-sudo apt-get update
-sudo apt-get -y --force-yes upgrade
+apt-get update
+apt-get -y --force-yes upgrade
+
+debconf-set-selections /vagrant/preconfig.txt
 
 echo -e "\e[1;32m=== Installation des packages nécessaires à Cortext\e[0m"
-sudo apt-get install -y --force-yes apache2 php5 php5-mysql mysql-server phpmyadmin libapache2-mod-wsgi libapache2-mod-php5 mysql-client php-pear curl php5-cli php5-dev php5-gd php5-curl php5-intl git
+apt-get install -y --force-yes apache2 php5 php5-mysql mysql-server phpmyadmin libapache2-mod-wsgi libapache2-mod-php5 mysql-client php-pear curl php5-cli php5-dev php5-gd php5-curl php5-intl git postfix mailutils
 
 echo -e "\e[1;32m=== Activation des modules apache\e[0m"
-sudo a2enmod rewrite headers
+a2enmod rewrite headers
 
 echo -e "\e[1;32m=== Modification du groupe d'exécution apache\e[0m"
-sudo sed -i 's/export APACHE_RUN_GROUP=www-data/export APACHE_RUN_GROUP=vagrant/' /etc/apache2/envvars
+sed -i 's/export APACHE_RUN_GROUP=www-data/export APACHE_RUN_GROUP=vagrant/' /etc/apache2/envvars
 
 echo -e "\e[1;32m=== On permet un mot de passe vide pour la BDD\e[0m"
-sudo sed -i "s/\/\/ \$cfg\['Servers'\]\[\$i\]\['AllowNoPassword'\] = TRUE/\$cfg\['Servers'\]\[\$i\]\['AllowNoPassword'\] = TRUE/" /etc/phpmyadmin/config.inc.php
+sed -i "s/\/\/ \$cfg\['Servers'\]\[\$i\]\['AllowNoPassword'\] = TRUE/\$cfg\['Servers'\]\[\$i\]\['AllowNoPassword'\] = TRUE/" /etc/phpmyadmin/config.inc.php
+
+echo -e "\e[1;32m=== Ajout du virtual hosts Phpmyadmin\e[0m"
+ln -s /etc/phpmyadmin/apache.conf /etc/apache2/conf.d/phpmyadmin.conf
 
 echo -e "\e[1;32m=== Modification du umask Apache\e[0m"
-sudo echo "umask 0002" >> /etc/apache2/envvars
+echo umask 0002 >> /etc/apache2/envvars
 
 echo -e "\e[1;32m=== Redémarrage d'Apache pour prendre en compte la nouvelle config\e[0m"
-sudo service apache2 restart
+service apache2 restart
+
+echo -e "\e[1;32m=== Configuration de postfix\e[0m"
+sed -i 's/debian-7.7.0-amd64/cortext.dev/' /etc/postfix/main.cf
+sed -i 's/inet_interfaces = all/inet_interfaces = loopback-only/' /etc/postfix/main.cf
+echo "default_transport = error
+relay_transport = error" >> /etc/postfix/main.cf
+service postfix restart
 
 echo -e "\e[1;32m=== Téléchargement de Composer\e[0m"
-cd
+cd /home/vagrant
 curl -s https://getcomposer.org/installer | php
 
 echo -e "\e[1;32m=== Création d'un lien vers Composer\e[0m"
-sudo ln -s /home/vagrant/composer.phar /usr/local/bin/composer
+ln -s /home/vagrant/composer.phar /usr/local/bin/composer
 
 echo -e "\e[1;32m=== Création des alias\e[0m"
-sudo echo "export LS_OPTIONS='--color=auto'" >> /home/vagrant/.bash_aliases
-sudo echo "eval \"`dircolors`\"" >> /home/vagrant/.bash_aliases
-sudo echo "alias ls='ls \$LS_OPTIONS'" >> /home/vagrant/.bash_aliases
-sudo echo "alias ll='ls \$LS_OPTIONS -lrth'" >> /home/vagrant/.bash_aliases
-sudo echo "alias la='ls \$LS_OPTIONS -lA'" >> /home/vagrant/.bash_aliases
-sudo echo "alias l='ls \$LS_OPTIONS -l'" >> /home/vagrant/.bash_aliases
-. /home/vagrant/.bash_aliases
+echo "export LS_OPTIONS='--color=auto'" >> /home/vagrant/.bash_aliases
+echo "eval \"`dircolors`\"" >> /home/vagrant/.bash_aliases
+echo "alias ls='ls \$LS_OPTIONS'" >> /home/vagrant/.bash_aliases
+echo "alias ll='ls \$LS_OPTIONS -lrth'" >> /home/vagrant/.bash_aliases
+echo "alias la='ls \$LS_OPTIONS -lA'" >> /home/vagrant/.bash_aliases
+echo "alias l='ls \$LS_OPTIONS -l'" >> /home/vagrant/.bash_aliases
  
-#sudo echo "export LS_OPTIONS='--color=auto'" >> /root/.bashrc
-#sudo echo "eval \"`dircolors`\"" >> /root/.bashrc
-#sudo echo "alias ls='ls $LS_OPTIONS'" >> /root/.bashrc
-#sudo echo "alias ll='ls $LS_OPTIONS -lrth'" >> /root/.bashrc
-#sudo echo "alias la='ls $LS_OPTIONS -lA'" >> /root/.bashrc
-#sudo echo "alias l='ls $LS_OPTIONS -l'" >> /root/.bashrc
+echo "export LS_OPTIONS='--color=auto'" >> /root/.bashrc
+echo "eval \"`dircolors`\"" >> /root/.bashrc
+echo "alias ls='ls $LS_OPTIONS'" >> /root/.bashrc
+echo "alias ll='ls $LS_OPTIONS -lrth'" >> /root/.bashrc
+echo "alias la='ls $LS_OPTIONS -lA'" >> /root/.bashrc
+echo "alias l='ls $LS_OPTIONS -l'" >> /root/.bashrc
+
+. /home/vagrant/.bash_aliases
 
 echo -e "\e[1;32m=== Appels des scripts d'installation des modules Cortext\e[0m"
 cd /vagrant
 . 3_install_Auth.sh
 . 4_install_Assets.sh
 . 5_install_Manager.sh
+. add_etc_hosts.sh
 
-echo -e "\e[1;32m=== Il ne reste plus qu'à configurer les redirections locales\e[0m"
-echo -e "\e[1;31mExecuter avec les droits root ./add_etc_hosts.sh\e[0m"
-echo -e "\e[1;31msur la machine virtuelle et sur la machine physique\e[0m"
+echo -e "\e[1;32m=== Fin, vous pouvez maintenant ajouter des données de test avec la commande suivante:\e[0m"
+echo -e "\e[1;31m./6_dummy_data.sh\e[0m"

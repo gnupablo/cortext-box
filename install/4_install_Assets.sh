@@ -1,21 +1,11 @@
-#!/bin/sh
+#/bin/sh
 
 home_dir=/vagrant
-
-echo -e "\e[1;32m=== Récuperation des mots de passe de la BDD\e[0m"
-stty -echo
-printf "MySQL Root Password: "
-read mdp_root
-echo
-printf "Define MySQL Assets User Password: "
-read mdp_user
-stty echo
-echo
 
 echo -e "\e[1;32m=== Création du script SQL de création de la base\e[0m"
 echo "CREATE DATABASE IF NOT EXISTS ct_assets;
 USE ct_assets;
-GRANT ALL PRIVILEGES ON ct_assets.* TO 'ct_assets'@'localhost' IDENTIFIED BY '$mdp_user' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON ct_assets.* TO 'ct_assets'@'localhost' IDENTIFIED BY '' WITH GRANT OPTION;
 CREATE TABLE IF NOT EXISTS \`document\` (
   \`hash\` varchar(256) NOT NULL COMMENT 'md5 du fullname (path+filename)',
   \`fullname\` text NOT NULL COMMENT 'path+filename reel',
@@ -24,17 +14,9 @@ CREATE TABLE IF NOT EXISTS \`document\` (
   KEY \`username\` (\`username\`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;" > tmp.sql
 
-echo -e "\e[1;32m=== Création de la base de données\e[0m"
-if [ -z $mdp_root ]
-then
 mysql -uroot << EOF
 source tmp.sql;
 EOF
-else
-mysql -uroot -p$mdp_root << EOF
-source tmp.sql;
-EOF
-fi
 
 echo -e "\e[1;32m=== Suppression du script SQL\e[0m"
 if [ -f tmp.sql ]
@@ -48,7 +30,7 @@ chmod g+w $home_dir/cortext-assets/server/log/assets.log
 
 echo -e "\e[1;32m=== Création du répertoire documents\e[0m"
 mkdir -p $home_dir/cortext-assets/server/documents
-sudo chmod 777 $home_dir/cortext-assets/server/documents
+chmod 777 $home_dir/cortext-assets/server/documents
 
 echo -e "\e[1;32m=== Génération du fichier de config\e[0m"
 echo "<?php
@@ -67,7 +49,7 @@ define('DB_DRIVER', 'pdo_mysql');
 define('DB_HOST', 'localhost');
 define('DB_DBNAME', 'ct_assets');
 define('DB_USER', 'ct_assets');
-define('DB_PASSWORD', '$mdp_user');
+define('DB_PASSWORD', '');
 ////////////////////////////////////////////////////
 //Parameters Construction
 \$parameters = array();
@@ -86,9 +68,9 @@ cd $home_dir/cortext-assets/server
 composer update
 
 echo -e "\e[1;32m=== Configuration du VHost\e[0m"
-sudo cp /vagrant/assets.conf /etc/apache2/sites-available/assets.conf
-sudo a2ensite assets.conf
-sudo service apache2 reload
+cp /vagrant/assets.conf /etc/apache2/sites-available/assets.conf
+a2ensite assets.conf
+service apache2 reload
 
 echo -e "\e[1;32m=== Renommage du .htaccess\e[0m"
 mv $home_dir/cortext-assets/server/web/.htaccess.default $home_dir/cortext-assets/server/web/.htaccess
