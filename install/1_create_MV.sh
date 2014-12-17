@@ -4,6 +4,20 @@ echo -e "\e[1;32m=== Script d'initialisation de la machine virtuelle\e[0m"
 
 # Se placer dans un répertoire de travail qui accueillera la machine virtuelle
 
+echo -e "\e[1;32m=== Vérification des pré-requis logiciel\e[0m"
+dpkg-query -l git 2>/dev/null >/dev/null
+if [ "$?" != "0" ]
+then
+   echo -e "\e[1;31m=== Git est un pré-requis à l'installation, merci de l'installer :\nsudo apt-get install git\e[0m"
+   exit 1
+fi
+dpkg-query -l vagrant 2>/dev/null >/dev/null
+if [ "$?" != "0" ]
+then
+   echo -e "\e[1;31m=== Vagrant est un pré-requis à l'installation, merci de l'installer :\nsudo apt-get install vagrant\e[0m"
+   exit 1
+fi
+
 echo -e "\e[1;32m=== Initialisation de la config Vagrant\e[0m"
 vagrant init dhoppe/debian-7.7.0-amd64-nocm
 
