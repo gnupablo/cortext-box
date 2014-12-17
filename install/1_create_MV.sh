@@ -5,16 +5,31 @@ echo -e "\e[1;32m=== Script d'initialisation de la machine virtuelle\e[0m"
 # Se placer dans un répertoire de travail qui accueillera la machine virtuelle
 
 echo -e "\e[1;32m=== Vérification des pré-requis logiciel\e[0m"
-dpkg-query -l git 2>/dev/null >/dev/null
+dpkg-query -s git 2>/dev/null | grep -i "Status: install"
 if [ "$?" != "0" ]
 then
    echo -e "\e[1;31m=== Git est un pré-requis à l'installation, merci de l'installer :\nsudo apt-get install git\e[0m"
    exit 1
 fi
-dpkg-query -l vagrant 2>/dev/null >/dev/null
+
+dpkg -s linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') 2>/dev/null | grep -i "Status: install"
 if [ "$?" != "0" ]
 then
-   echo -e "\e[1;31m=== Vagrant est un pré-requis à l'installation, merci de l'installer :\nsudo apt-get install vagrant\e[0m"
+   echo -e "\e[1;31m=== Linux headers est un pré-requis à l'installation, merci de l'installer :\nsudo apt-get install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,')\e[0m"
+   exit 1
+fi
+
+dpkg-query -s virtualbox 2>/dev/null | grep -i "Status: install"
+if [ "$?" != "0" ]
+then
+   echo -e "\e[1;31m=== virtualbox est un pré-requis à l'installation, merci de l'installer :\nsudo apt-get install virtualbox\e[0m"
+   exit 1
+fi
+
+dpkg-query -s vagrant 2>/dev/null | grep -i "Status: install"
+if [ "$?" != "0" ]
+then
+   echo -e "\e[1;31m=== Vagrant est un pré-requis à l'installation, merci de le telecharger depuis :\nhttps://www.vagrantup.com/downloads.html\npuis installer le package avec la commande\nsudodpkg -i nomdupackage\e[0m"
    exit 1
 fi
 
