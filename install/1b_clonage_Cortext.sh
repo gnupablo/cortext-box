@@ -32,6 +32,10 @@ if [ $option -eq 1 ] || [ $option -eq 9 ]
 then 
    echo -e "\n\e[1;32m=== Clonage de Cortext Auth depuis Github\e[0m"
    git clone --recursive git@github.com:cortext/cortext-auth.git
+   # Ajout d'un checkout au niveau du submodule sinon les modifs ne pourront pas être poussées
+   cd cortext-auth/server/vendor/cortext/silex-simpleuser
+   git checkout master
+   cd ../../../../..
 fi
 
 if [ $option -eq 2 ] || [ $option -eq 9 ]
