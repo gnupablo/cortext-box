@@ -1,30 +1,5 @@
 class cortext {
-    define ctrun {
-        $src_dir = "/vagrant/src/cortext"
-        file{"${src_dir}/${title}":
-            ensure => directory,
-            mode => 775
-        }
-        exec{"chmod +x ${src_dir}/${title}/install.sh":
-            onlyif    => "/usr/bin/test -f ${src_dir}/${title}/install.sh"
-        }
-        exec{"chmod +x ${src_dir}/${title}/start.sh":
-            onlyif    => "/usr/bin/test -f ${src_dir}/${title}/start.sh"
-        }
-        exec{"${src_dir}/${title}/install.sh":
-            cwd       => "${src_dir}/${title}",
-            path      => ["/usr/bin","/usr/local/bin"],
-            onlyif    => "/usr/bin/test -f ${src_dir}/${title}/install.sh",
-            require   => Exec["chmod +x ${src_dir}/${title}/install.sh"]
-        }
-        exec{"${src_dir}/${title}/start.sh &":
-            cwd       => "${src_dir}/${title}",
-            path      => ["/usr/bin","/usr/local/bin"],
-            require   => [File['/etc/php5/cli/php.ini'], Exec["${src_dir}/${title}/install.sh"],Exec["chmod +x ${src_dir}/${title}/start.sh"]],
-            onlyif    => "/usr/bin/test -f ${src_dir}/${title}/start.sh"
-        }
-    }
-
+    #see ctrun in ctrun.pp
     $dir='/vagrant/src/cortext'
     file {$dir:
         ensure => directory,
@@ -32,14 +7,12 @@ class cortext {
     }
 
     #update composer
-    
     exec {'/usr/local/bin/composer self-update':
             path      => ["/usr/bin","/usr/local/bin"],
             require   => File['/usr/local/bin/composer']
     }
 
     #install and run projects
-
     ctrun{['cortext-auth','cortext-assets','cortext-manager']:} ##removing 'cortext-graphs' for now
 
     #ct manager V1
@@ -78,12 +51,13 @@ class cortext {
             ensure => directory,
             mode => 775
         }
-    
+
 
     # launch mcp and workers
     exec {'supervisord -q /vagrant/src/cortext/cortext/manager/mcp/log -d /vagrant/src/cortext/cortext/manager/mcp':
             path      => ["/usr/bin","/usr/local/bin"],
             cwd       => '/vagrant/src/cortext/cortext/manager/mcp',
+            user      => 'vagrant',
             require   => [File['/etc/supervisord.conf'], File['/vagrant/src/cortext/cortext/manager/mcp/log']]
         }
 }
