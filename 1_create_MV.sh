@@ -19,12 +19,12 @@ then
    exit 1
 fi
 
-dpkg-query -s virtualbox 2>/dev/null | grep -i "Status: install" >/dev/null
-if [ "$?" != "0" ]
-then
-   echo -e "\e[1;31m=== virtualbox est un pré-requis à l'installation, merci de l'installer :\nsudo apt-get install virtualbox\e[0m"
-   exit 1
-fi
+#dpkg-query -s virtualbox 2>/dev/null | grep -i "Status: install" >/dev/null
+#if [ "$?" != "0" ]
+#then
+#   echo -e "\e[1;31m=== virtualbox est un pré-requis à l'installation, merci de l'installer :\nsudo apt-get install virtualbox\e[0m"
+#   exit 1
+#fi
 
 dpkg-query -s vagrant 2>/dev/null | grep -i "Status: install" >/dev/null
 if [ "$?" != "0" ]
@@ -34,7 +34,8 @@ then
 fi
 
 echo -e "\e[1;32m=== Initialisation de la config Vagrant\e[0m"
-vagrant init dhoppe/debian-7.7.0-amd64-nocm
+vagrant init http://file.inra-ifris.org/files/cortext-wheezy.box
+#vagrant init dhoppe/debian-7.7.0-amd64-nocm
 
 echo -e "\e[1;32m=== Modification de la config pour pouvoir accéder à la machine en http via le port 8080\e[0m"
 sed -i 's/\# config.vm.network \"forwarded_port\", guest: 80, host: 8080/config.vm.network \"forwarded_port\", guest: 80, host: 8080/' Vagrantfile
