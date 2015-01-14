@@ -87,18 +87,20 @@ ln -s /home/vagrant/composer.phar /usr/local/bin/composer
 
 echo -e "\e[1;32m=== Création des alias\e[0m"
 echo "export LS_OPTIONS='--color=auto'" >> /home/vagrant/.bash_aliases
-echo "eval \"`dircolors`\"" >> /home/vagrant/.bash_aliases
+echo "eval \"\`dircolors\`\"" >> /home/vagrant/.bash_aliases
 echo "alias ls='ls \$LS_OPTIONS'" >> /home/vagrant/.bash_aliases
 echo "alias ll='ls \$LS_OPTIONS -lrth'" >> /home/vagrant/.bash_aliases
 echo "alias la='ls \$LS_OPTIONS -lA'" >> /home/vagrant/.bash_aliases
 echo "alias l='ls \$LS_OPTIONS -l'" >> /home/vagrant/.bash_aliases
+sed -i 's/#force_color_prompt=yes/force_color_prompt=yes/g' /home/vagrant/.bashrc
  
 echo "export LS_OPTIONS='--color=auto'" >> /root/.bashrc
-echo "eval \"`dircolors`\"" >> /root/.bashrc
-echo "alias ls='ls $LS_OPTIONS'" >> /root/.bashrc
-echo "alias ll='ls $LS_OPTIONS -lrth'" >> /root/.bashrc
-echo "alias la='ls $LS_OPTIONS -lA'" >> /root/.bashrc
-echo "alias l='ls $LS_OPTIONS -l'" >> /root/.bashrc
+echo "eval \"\`dircolors\`\"" >> /root/.bashrc
+echo "alias ls='ls \$LS_OPTIONS'" >> /root/.bashrc
+echo "alias ll='ls \$LS_OPTIONS -lrth'" >> /root/.bashrc
+echo "alias la='ls \$LS_OPTIONS -lA'" >> /root/.bashrc
+echo "alias l='ls \$LS_OPTIONS -l'" >> /root/.bashrc
+echo "PS1='\${debian_chroot:+(\$debian_chroot)}\\[\\033[01;32m\\]\\u@\\h\\[\\033[00m\\]:\\[\\033[01;34m\\]\\w\\[\\033[00m\\]\\\$ '" >> /root/.bashrc
 
 . /home/vagrant/.bash_aliases
 
