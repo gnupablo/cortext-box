@@ -103,6 +103,18 @@ echo "alias l='ls $LS_OPTIONS -l'" >> /root/.bashrc
 . /home/vagrant/.bash_aliases
 
 
+# Installation de phpunit
+
+echo -e "\e[1;32m=== Téléchargement de PHPUnit\e[0m"
+wget https://phar.phpunit.de/phpunit.phar
+
+echo -e "\e[1;32m=== Attribution des droits d'éxecution\e[0m"
+chmod +x phpunit.phar
+
+echo -e "\e[1;32m=== Installation de PHPUnit\e[0m"
+mv phpunit.phar /usr/bin/phpunit
+
+
 # Lancement de l'installation des modules Cortext
 
 echo -e "\e[1;32m=== Appels des scripts d'installation des modules Cortext\e[0m"
