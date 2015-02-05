@@ -46,6 +46,15 @@ then
    rm tmp.sql
 fi
 
+echo -e "\e[1;32m=== Peuplement de la table des scripts\e[0m"
+if [ -f $home_dir/cortext-manager/data/table-script-datas.sql ]
+then
+   mysql -uroot << EOF
+USE ct_manager;
+source $home_dir/cortext-manager/data/table-script-datas.sql;
+EOF
+fi
+
 echo -e "\e[1;32m=== Création et gestion des droits du répertoire log\e[0m"
 mkdir -p $home_dir/cortext-manager/log
 chmod -R g+w $home_dir/cortext-manager/log/
@@ -63,29 +72,30 @@ echo "{
         \"path\"  :  \"/vagrant/cortext-methods\"
   },
   \"Storage\": {
-      \"name\": \"\",
-      \"url\": \"\",
-      \"getDocument\": \"\"
+      \"name\": \"Cortext Assets\",
+      \"api\": \"http://assets.cortext.dev\",
+      \"url\": \"http://assets.cortext.dev:8080\",
+      \"getDocument\": \"/docs\"
   },
   \"Identity\": {
-      \"name\": \"\",
-      \"urlAuth\": \"\",
-      \"urlAccess\": \"\",
-      \"urlSubscribe\": \"\",
-      \"urlEdit\": \"\",
-      \"urlLogout\": \"\",
-      \"urlLogin\": \"\",
+      \"name\": \"Cortext Auth\",
+      \"urlAuth\": \"http://auth.cortext.dev/auth\",
+      \"urlAccess\": \"http://auth.cortext.dev/auth/access\",
+      \"urlSubscribe\": \"http://auth.cortext.dev:8080/user/register\",
+      \"urlEdit\": \"http://auth.cortext.dev:8080/user\",
+      \"urlLogout\": \"http://auth.cortext.dev:8080/user/logout\",
+      \"urlLogin\": \"http://auth.cortext.dev:8080/user/login\",
       \"account\": {
-          \"service\": \"\",
-          \"clientId\": \"\",
-          \"secret\": \"\"
+          \"service\": \"cortext\",
+          \"clientId\": \"cortext-dashboard\",
+          \"secret\": \"c0rt3xt\"
       }
   },   
   \"Api\": {
-      \"url\": \"\",
-      \"createElement\": \"\",
-      \"createDocument\": \"\",
-      \"createAnalysis\": \"\"
+      \"url\": \"http://localhost:8080\",
+      \"createElement\": \"/elements\",
+      \"createDocument\": \"/documents\",
+      \"createAnalysis\": \"/analysis\"
   },
   \"debug_mode\": true
 }" > $home_dir/cortext-manager/data/parameters.json
