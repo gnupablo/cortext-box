@@ -12,7 +12,7 @@ do
 echo 1 - Cortext Auth
 echo 2 - Cortext Assets
 echo 3 - Cortext Manager
-echo 4 - Cortext Dashboard/Job Manager
+echo 4 - Cortext Projects
 echo 5 - Cortext Methods
 echo
 echo 9 - Tous et quitter
@@ -52,8 +52,8 @@ fi
 
 if [ $option -eq 4 ] || [ $option -eq 9 ]
 then
-   echo -e "\n\e[1;32m=== Clonage de Cortext Dashboard/Job Manager depuis Github\e[0m"
-   git clone --recursive git@github.com:cortext/cortext-dashboard.git
+   echo -e "\n\e[1;32m=== Clonage de Cortext Projects depuis Github\e[0m"
+   git clone --recursive git@github.com:cortext/cortext-projects.git
 fi
 
 if [ $option -eq 5 ] || [ $option -eq 9 ]
