@@ -44,7 +44,7 @@ echo -e "\e[1;32m=== Désactivation de la mise à jour automatique de la box, po
 sed -i 's/\# config.vm.box_check_update = false/config.vm.box_check_update = false/' Vagrantfile
 
 echo -e "\e[1;32m=== Changement des droits par défaut du montage /vagrant\e[0m"
-#sed -i 's/\# config.vm.synced_folder "..\/data", "\/vagrant_data"/config.vm.synced_folder ".", "\/vagrant", :mount_options => \["dmode=777","fmode=666"\]/' Vagrantfile
+#sed -i 's/\# config.vm.synced_folder "..\/data", "\/vagrant_data"/config.vm.synced_folder ".", "\/vagrant", :mount_options => \["dmode=777","fmode=777"\]/' Vagrantfile
 
 echo -e "\e[1;32m=== Démarrage de la machine virtuelle, avec téléchargement de l'image lors du premier chargement\e[0m"
 vagrant up
