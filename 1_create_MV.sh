@@ -33,32 +33,12 @@ then
    exit 1
 fi
 
-#dpkg-query -s virtualbox 2>/dev/null | grep -i "Status: install" >/dev/null
-#if [ "$?" != "0" ]
-#then
-#   echo -e "\e[1;31m=== virtualbox est un pré-requis à l'installation, merci de l'installer :\nsudo apt-get install virtualbox\e[0m"
-#   exit 1
-#fi
-
 dpkg-query -s vagrant 2>/dev/null | grep -i "Status: install" >/dev/null
 if [ "$?" != "0" ]
 then
    echo -e "\e[1;31m=== Vagrant est un pré-requis à l'installation, merci de le telecharger depuis :\nhttps://www.vagrantup.com/downloads.html\npuis installer le package avec la commande\nsudodpkg -i nomdupackage\e[0m"
    exit 1
 fi
-
-echo -e "\e[1;32m=== Initialisation de la config Vagrant\e[0m"
-vagrant init http://file.inra-ifris.org/files/cortext-wheezy.box
-#vagrant init dhoppe/debian-7.7.0-amd64-nocm
-
-echo -e "\e[1;32m=== Modification de la config pour pouvoir accéder à la machine en http via le port 8080\e[0m"
-sed -i 's/\# config.vm.network \"forwarded_port\", guest: 80, host: 8080/config.vm.network \"forwarded_port\", guest: 80, host: 8080/' Vagrantfile
-
-echo -e "\e[1;32m=== Désactivation de la mise à jour automatique de la box, pour éviter une attente de timeout quand on travaille en déconnecté\e[0m"
-sed -i 's/\# config.vm.box_check_update = false/config.vm.box_check_update = false/' Vagrantfile
-
-echo -e "\e[1;32m=== Changement des droits par défaut du montage /vagrant\e[0m"
-#sed -i 's/\# config.vm.synced_folder "..\/data", "\/vagrant_data"/config.vm.synced_folder ".", "\/vagrant", :mount_options => \["dmode=777","fmode=777"\]/' Vagrantfile
 
 echo -e "\e[1;32m=== Démarrage de la machine virtuelle, avec téléchargement de l'image lors du premier chargement\e[0m"
 vagrant up

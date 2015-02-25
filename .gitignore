@@ -6,6 +6,3 @@
 
 # Modules Cortext
 cortext-*
-
-# Vagrant configuration
-Vagrantfile
