@@ -3,8 +3,22 @@
 echo -e "\e[1;32m=== Script d'initialisation de la machine virtuelle\e[0m"
 
 # Se placer dans un répertoire de travail qui accueillera la machine virtuelle
+echo -n -e "\n\e[1;31mCortext va etre installe dans le repertoire courant [O/n] ? \e[0m"
+read res
 
-echo -e "\e[1;32m=== Vérification des pré-requis logiciel\e[0m"
+# Cas par défaut
+if [ -z $res ]
+then
+   res=o
+fi
+
+if [ "$res" != "O" ] && [ "$res" != "o" ]
+then
+   echo -e "\n\e[1;32m=== Placez vous dans le répertoire d'installation, au besoin crééz-le avec \e[1;31mmkdir <nom du répertoire>\e[0m\n"
+   exit 1
+fi
+
+echo -e "\n\e[1;32m=== Vérification des pré-requis logiciel\e[0m"
 dpkg-query -s git 2>/dev/null | grep -i "Status: install" >/dev/null
 if [ "$?" != "0" ]
 then
