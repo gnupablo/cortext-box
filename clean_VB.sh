@@ -13,11 +13,6 @@ then
    vagrant destroy -f
 
    echo -e "\e[1;32m=== Suppression des fichiers\e[0m"
-   if [ -f Vagrantfile ]
-   then
-      echo -e "\e[1;32m=== Del Vagrantfile\e[0m"
-      rm Vagrantfile
-   fi
    if [ -d .vagrant ]
    then
       echo -e "\e[1;32m=== Del .vagrant\e[0m"
