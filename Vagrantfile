@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "http://file.inra-ifris.org/files/cortext-dev-v0.1.box"
+  config.vm.box = "http://file.inra-ifris.org/files/cortext-jessie.box"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -57,6 +57,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   # View the documentation for the provider you're using for more
   # information on available options.
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 2048
+    v.cpus = 3
+  end
 
   # Enable provisioning with CFEngine. CFEngine Community packages are
   # automatically installed. For example, configure the host as a
@@ -122,8 +126,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   #   chef.validation_client_name = "ORGNAME-validator"
 
+  # Démarrage des serveurs Cortext
+  # config.vm.provision "shell", path: "start_server.sh", privileged: false, run: "always"
 end
 
-#Vagrant.configure("2") do |config|
-#  config.vm.provision "shell", path: "start_server.sh", privileged: false, run: "always"
-#end

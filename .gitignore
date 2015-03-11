@@ -3,6 +3,7 @@
 *.log
 .vagrant
 *.box
+log*
 
 # Modules Cortext
 cortext-*

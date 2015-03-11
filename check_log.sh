@@ -1,1 +1,1 @@
-tail -f /var/log/supervisor/* /vagrant/cortext-manager/log/* /vagrant/cortext-auth/server/log/* /vagrant/cortext-assets/server/log/*
+tail -f /vagrant/log/*/*.log /vagrant/cortext-manager/log/*.log /vagrant/cortext-auth/server/log/*.log /vagrant/cortext-assets/server/log/*.log
