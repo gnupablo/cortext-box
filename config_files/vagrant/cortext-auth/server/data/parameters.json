@@ -1,0 +1,29 @@
+{
+  "client_id": "demoapp",
+  "client_secret": "demopass",
+  "token_route": "grant",
+  "authorize_route": "authorize",
+  "resource_route": "access",
+  "resource_method": "GET",
+  "resource_params": {},
+  "curl_options": {},
+  "db_options": {
+       "driver" : "pdo_mysql",
+       "dbname" : "ct_auth",
+       "host" : "localhost",
+       "user" : "ct_auth",
+       "password" : ""
+    },
+    "oauth": {
+    "access_lifetime": 31536000
+    },
+    "mailer": {
+      "host"       : "localhost",
+      "port"       : 25,
+      "username"   : "",
+      "password"   : "",
+      "encryption" : "",
+      "auth_mode"  : ""
+    },
+    "manager" : "http://manager.cortext.dev:8080"
+}
