@@ -244,7 +244,7 @@ Les fichiers de config sont présents dans le répertoire config_files/vagrant/.
     cp config_files/vagrant/cortext-projects/env/parameters.js cortext-projects/env/parameters.js
     cp config_files/vagrant/cortext-projects/private/api/config.json cortext-projects/private/api/config.json
 
-    cp config_files/etc/supervisord.conf /etc/supervisord.conf
+    sudo cp config_files/etc/supervisord.conf /etc/supervisord.conf
 
     cp config_files/vagrant/cortext-assets/server/app/config.php cortext-assets/server/app/config.php
     chmod 664 cortext-assets/server/app/config.php
