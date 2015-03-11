@@ -79,9 +79,11 @@ Pour éviter une configuration interactive pendant l'appel d'apt-get install, le
     sudo debconf-set-selections /vagrant/preconfig.txt 2> /dev/null
 
 
-5.2 Installation d'un LAMP + Postfix
+5.2 Installation d'un LAMP + Postfix + Python + Tools
 
-Pour lancer l'installation la commande suivante suffit.
+Pour lancer l'installation les commandes suivantes suffisent.
+
+    sudo apt-get update
 
     sudo apt-get install -y --force-yes apache2 php5 php5-mysql mysql-server phpmyadmin libapache2-mod-wsgi libapache2-mod-php5 mysql-client php-pear curl php5-cli php5-dev php5-gd php5-curl php5-intl postfix mailutils git python-setuptools htop atop nethogs nmap multitail 
 
