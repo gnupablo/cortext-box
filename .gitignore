@@ -4,6 +4,7 @@
 .vagrant
 *.box
 log*
+Vagrantfile
 
 # Modules Cortext
 /cortext-*

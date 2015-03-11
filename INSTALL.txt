@@ -54,7 +54,9 @@ Dans le cas d'une installation en machine virtuelle, afin que les logs soient ac
 
 4. Installation de la machine virtuelle
 
-Placer le fichier Vagrantfile de la cortext-box dans le répertoire d'installation de Cortext.
+Remplacer le fichier Vagrantfile de la cortext-box dans le répertoire d'installation de Cortext.
+
+    cp Vagrantfile_Install Vagrantfile
 
 Executer la commande suivante pour que la box soit téléchargée:
 
