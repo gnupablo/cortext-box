@@ -254,7 +254,9 @@ Les fichiers de config sont présents dans le répertoire config_files/vagrant/.
 
 Il faut redéfinir les noms de domaines en local pour pointer sur la machine local.
 
+    sudo su
     sudo echo "127.0.0.1 auth.cortext.dev assets.cortext.dev cortext.dev www.cortext.dev documents.cortext.dev" >> /etc/hosts
+    exit
 
 Il faut exécuter cette commande 2 fois. Une fois dans la machine virtuelle, et une fois sur la machine physique dans un autre terminal donc, et si ce n'est pas déjà fait.
 
