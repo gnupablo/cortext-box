@@ -30,10 +30,19 @@
       }
   },   
   "Api": {
-      "url": "http://localhost:8080",
+      "url": "http://10.10.10.10:8081",
       "createElement": "/elements",
       "createDocument": "/documents",
       "createAnalysis": "/analysis"
   },
-  "debug_mode": true
+  "debug_mode": true,
+  "mailer": {
+    "host"       : "localhost",
+    "port"       : 25,
+    "username"   : "",
+    "password"   : "",
+    "encryption" : "",
+    "auth_mode"  : ""
+  },
+  "admin" : "root@cortext.dev"
 }
