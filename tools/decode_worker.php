@@ -37,7 +37,7 @@ function outputJSON( $tableau, $dec = "" ) {
                     if ( strlen( $val ) && substr_compare( $val, "------------ ", 0, 13 ) == 0 )
                         echo $tab.$texte_orange.$key.":".$reset_color." ".substr( strip_tags($val), 13 ).PHP_EOL;
                     else
-                        echo $tab.$texte_orange.$key.":".$reset_color." ".strip_tags($val).PHP_EOL;
+                        echo $tab.$texte_orange.$key.":".$reset_color." ".strip_tags(@print_r($val,true)).PHP_EOL;
                 }
                 //print_r($job);
                 break;
@@ -74,7 +74,7 @@ function outputJSON( $tableau, $dec = "" ) {
                 }
                 break;
             default:
-                echo $dec.$texte_orange.$key.": ".$reset_color.$val.PHP_EOL;
+                echo $dec.$texte_orange.$key.": ".$reset_color.@print_r($val,true).PHP_EOL;
             }
         }
     }
