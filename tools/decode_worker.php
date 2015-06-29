@@ -98,13 +98,15 @@ while($f = fgets(STDIN)){
         $fond_date = $fond_vert;
     }
 
-    if(preg_match($pattern, $f, $result)){
+    // Si un jobId est passé en paramètre, on n'affiche que les lignes concernées
+    if ( $filterJobId === null ||
+         preg_match('/(\[MCP|INK\]|\[JOB|\[WORKER).*job( ' . $filterJobId . ' |.?id.?\":.?\"' . $filterJobId . '.?\")/i', $f, $filter) ) {
+
+      // Détection du nom du log file
+      if(preg_match($pattern, $f, $result)){
         echo PHP_EOL.$texte_bleu.$result[1].$reset_color.PHP_EOL.PHP_EOL;
-    }
-    else{
-        
-      if ( $filterJobId === null ||
-           preg_match('/(\[MCP|INK\]|\[JOB|\[WORKER).*job( ' . $filterJobId . ' |.?id.?\":.?\"' . $filterJobId . '.?\")/i', $f, $filter) ) {
+      }
+      else{
         
         //pattern log standard Cortext
         $pattern = '/^(\[[0-9 :-]+\]) ([^: ]+): \[([^\]]*)\] (.*) (\[.*\]).*$/';
