@@ -4,6 +4,12 @@
 //error_reporting(0);
 error_reporting(E_ALL);
 
+if ( $argc > 1 && is_numeric( $argv[1] ) ) {
+  $filterJobId = (int)$argv[1];
+} else {
+  $filterJobId = null;
+}
+
 // Codes couleurs
 $fond_vert = "\033[42m";
 $fond_rouge = "\033[41m";
@@ -86,17 +92,19 @@ while($f = fgets(STDIN)){
     $pattern = '/^==>(.*)<==$/';
 
     //détection du mot error, passage en rouge de la date
-    if(strpos($f, "error") or strpos("Error", $f) or strpos($f, "CRITICAL") ){
+    if(stripos($f, "error") or stripos($f, "CRITICAL") ){
         $fond_date = $fond_rouge;
     }else {
         $fond_date = $fond_vert;
     }
 
-
     if(preg_match($pattern, $f, $result)){
         echo PHP_EOL.$texte_bleu.$result[1].$reset_color.PHP_EOL.PHP_EOL;
     }
     else{
+        
+      if ( $filterJobId === null ||
+           preg_match('/(\[MCP|INK\]|\[JOB|\[WORKER).*job( ' . $filterJobId . ' |_id?\":?\"' . $filterJobId . '?\")/', $f, $filter) ) {
         
         //pattern log standard Cortext
         $pattern = '/^(\[[0-9 :-]+\]) ([^: ]+): \[([^\]]*)\] (.*) (\[.*\]).*$/';
@@ -124,7 +132,8 @@ while($f = fgets(STDIN)){
                 echo $fond_date.$texte_blanc."[?:?]".$reset_color.$tab.$f.$reset_color;    
             }
             
-        }     
+        }
+      }
     }
     
 }
