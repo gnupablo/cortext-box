@@ -104,7 +104,7 @@ while($f = fgets(STDIN)){
     else{
         
       if ( $filterJobId === null ||
-           preg_match('/(\[MCP|INK\]|\[JOB|\[WORKER).*job( ' . $filterJobId . ' |_id?\":?\"' . $filterJobId . '?\")/', $f, $filter) ) {
+           preg_match('/(\[MCP|INK\]|\[JOB|\[WORKER).*job( ' . $filterJobId . ' |.?id.?\":.?\"' . $filterJobId . '.?\")/i', $f, $filter) ) {
         
         //pattern log standard Cortext
         $pattern = '/^(\[[0-9 :-]+\]) ([^: ]+): \[([^\]]*)\] (.*) (\[.*\]).*$/';
