@@ -100,7 +100,7 @@ while($f = fgets(STDIN)){
 
     // Si un jobId est passé en paramètre, on n'affiche que les lignes concernées
     if ( $filterJobId === null ||
-         preg_match('/(\[MCP|INK\]|\[JOB|\[WORKER).*job( ' . $filterJobId . ' |.?id.?\":.?\"' . $filterJobId . '.?\")/i', $f, $filter) ) {
+         preg_match('/(\[MCP|INK\]|\[JOB|\[WORKER|\[DEBUG\]).*job( #?' . $filterJobId . ' |.?id.?\": ?.?\"' . $filterJobId . '.?\")/i', $f, $filter) ) {
 
       // Détection du nom du log file
       if(preg_match($pattern, $f, $result)){
