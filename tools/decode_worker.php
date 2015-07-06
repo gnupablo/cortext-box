@@ -117,9 +117,6 @@ while($f = fgets(STDIN)){
         {
             echo PHP_EOL."-- filtering Job Id : ".$filterJobId."--".PHP_EOL;
         }
-        else{
-            echo PHP_EOL."-- no filtering --".PHP_EOL;
-        }
    
         //pattern log standard Cortext
         $pattern = '/^(\[[0-9 :-]+\]) ([^. ]+)\.([^: ]+): (.*) (\[.*\]).*$/';
