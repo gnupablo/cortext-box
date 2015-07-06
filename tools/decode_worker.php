@@ -4,12 +4,6 @@
 //error_reporting(0);
 error_reporting(E_ALL);
 
-if ( $argc > 1 && is_numeric( $argv[1] ) ) {
-  $filterJobId = (int)$argv[1];
-} else {
-  $filterJobId = null;
-}
-
 // Codes couleurs
 $fond_vert = "\033[42m";
 $fond_rouge = "\033[41m";
@@ -21,7 +15,15 @@ $texte_orange = "\033[33m";
 $underline = "\033[4m";
 $reset_color = "\033[0m";
 $tab = "\t";
- 
+
+if ( $argc > 1 && is_numeric( $argv[1] ) ) {
+      $filterJobId = (int)$argv[1];
+      echo "Filtering Job Id $filterJobId";
+    } else {
+      $filterJobId = null;
+}
+
+
 function isHTML( $string ) {
     return ( $string != strip_tags( $string ) );
 }
@@ -92,27 +94,38 @@ while($f = fgets(STDIN)){
     $pattern = '/^==>(.*)<==$/';
 
     //détection du mot error, passage en rouge de la date
-    if(stripos($f, "error") or stripos($f, "CRITICAL") ){
+    if(strpos($f, "error") or strpos("Error", $f) or strpos($f, "CRITICAL") ){
         $fond_date = $fond_rouge;
     }else {
         $fond_date = $fond_vert;
     }
+    if(preg_match($pattern, $f, $result)){
+            echo PHP_EOL.$texte_bleu.$result[1].$reset_color.PHP_EOL.PHP_EOL;
+            continue;
+        }
 
     // Si un jobId est passé en paramètre, on n'affiche que les lignes concernées
     if ( $filterJobId === null ||
-         preg_match('/(\[MCP|INK\]|\[JOB|\[WORKER|\[DEBUG\]).*job( #?' . $filterJobId . ' |.?id.?\": ?.?\"' . $filterJobId . '.?\")/i', $f, $filter) ) {
+          preg_match('/(MCP|INK|JOB|WORKER|DEBUG).*job( #?' 
+            . $filterJobId 
+            . ' |.?id.?\": ?.?\"' 
+            . $filterJobId 
+            . '.?\")/i', $f, $filter) 
+        ){
 
-      // Détection du nom du log file
-      if(preg_match($pattern, $f, $result)){
-        echo PHP_EOL.$texte_bleu.$result[1].$reset_color.PHP_EOL.PHP_EOL;
-      }
-      else{
-        
+        if($filterJobId)
+        {
+            echo PHP_EOL."-- filtering Job Id : ".$filterJobId."--".PHP_EOL;
+        }
+        else{
+            echo PHP_EOL."-- no filtering --".PHP_EOL;
+        }
+   
         //pattern log standard Cortext
-        $pattern = '/^(\[[0-9 :-]+\]) ([^: ]+): \[([^\]]*)\] (.*) (\[.*\]).*$/';
+        $pattern = '/^(\[[0-9 :-]+\]) ([^. ]+)\.([^: ]+): (.*) (\[.*\]).*$/';
         if ( preg_match( $pattern, $f, $result ) ) {
             // Horodatage
-        echo PHP_EOL.$fond_date.$texte_blanc.$result[1].$reset_color.$tab.$texte_vert.$underline.$result[3].$reset_color.PHP_EOL;
+        echo PHP_EOL.$fond_date.$texte_blanc.$result[1].$reset_color.$tab.$texte_vert.$underline. $result[2].$texte_bleu." [".$result[3]."]".$reset_color.PHP_EOL;
 
             $msg = json_decode( $result[4], true );
 
@@ -134,8 +147,7 @@ while($f = fgets(STDIN)){
                 echo $fond_date.$texte_blanc."[?:?]".$reset_color.$tab.$f.$reset_color;    
             }
             
-        }
-      }
-    }
+        } 
+    }//fin if jobId
     
 }
