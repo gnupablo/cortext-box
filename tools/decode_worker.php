@@ -59,6 +59,7 @@ function outputJSON( $tableau, $dec = "" ) {
             case ("watchpoint"):
             case ("tag"):
             case ("pid"):
+            case ("job_id"):
             default:
                 echo $dec.$texte_orange.$key.": ".$reset_color.$val.PHP_EOL;
             }
