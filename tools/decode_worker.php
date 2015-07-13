@@ -12,6 +12,7 @@ $texte_rouge = "\033[31m";
 $texte_bleu = "\033[1;36m";
 $texte_vert = "\033[32m";
 $texte_orange = "\033[33m";
+$texte_vert_clair = "\033[92m";
 $underline = "\033[4m";
 $reset_color = "\033[0m";
 $tab = "\t";
@@ -31,6 +32,7 @@ function isHTML( $string ) {
 function outputJSON( $tableau, $dec = "" ) {
     global $tab, $fond_vert, $texte_blanc, $texte_rouge, $texte_vert, $texte_orange, $underline, $reset_color;
     $dec = $tab.$dec;
+    echo PHP_EOL;
     foreach( $tableau as $key => $val ) {
         if ( gettype( $val ) !== "array" ) {
             switch($key) {
@@ -95,9 +97,9 @@ while($f = fgets(STDIN)){
 
     //détection du mot error, passage en rouge de la date
     if(strpos($f, "error") or strpos("Error", $f) or strpos($f, "CRITICAL") ){
-        $fond_date = $fond_rouge;
+        $fond_date = $fond_rouge.$texte_blanc;
     }else {
-        $fond_date = $fond_vert;
+        $fond_date = $texte_vert_clair;
     }
     if(preg_match($pattern, $f, $result)){
             echo PHP_EOL.$texte_bleu.$result[1].$reset_color.PHP_EOL.PHP_EOL;
@@ -122,13 +124,14 @@ while($f = fgets(STDIN)){
         $pattern = '/^(\[[0-9 :-]+\]) ([^. ]+)\.([^: ]+): (.*) (\[.*\]).*$/';
         if ( preg_match( $pattern, $f, $result ) ) {
             // Horodatage
-        echo PHP_EOL.$fond_date.$texte_blanc.$result[1].$reset_color.$tab.$texte_vert.$underline. $result[2].$texte_bleu." [".$result[3]."]".$reset_color.PHP_EOL;
+            echo PHP_EOL.$fond_date.$result[1].$reset_color.$tab
+                . $texte_vert.$underline.$result[2].$texte_bleu." [".$result[3]."]".$reset_color;
 
             $msg = json_decode( $result[4], true );
 
             if ( $msg === null ) {
                 // Pas du JSON alors on sort le message reformaté
-                echo PHP_EOL.$tab."MSG: ".strip_tags($result[4]).$reset_color.PHP_EOL;
+                echo " - ".strip_tags($result[4]).$reset_color;
 
             } else {
                 // On a du JSON, alors on décode
@@ -138,10 +141,17 @@ while($f = fgets(STDIN)){
             // Essai de parsing de la date seule
             $pattern = '/^(\[[^\]]+\]) (.*)$/';
             if(preg_match($pattern, $f, $result)){
-                echo $fond_date.$texte_blanc.$result[1].$reset_color.$tab.$result[2].$reset_color.PHP_EOL;
+                echo PHP_EOL.$fond_date.$result[1].$reset_color.$tab.$result[2].$reset_color;
+            }else{ 
+                //trying apache
+                $pattern = '/^(\S+) (\S+) (\S+) \[([^:]+):(\d+:\d+:\d+) ([^\]]+)\] (.*)$/';
+                if(preg_match($pattern, $f, $result)){
+                echo PHP_EOL.$fond_date."[".$result[4]." ".$result[5]. " ".$result[6]."] - ".$reset_color.$tab.$result[7].$reset_color;
             }else{
                 // La ligne ne correspond pas au format, on la sort normalement
-                echo $fond_date.$texte_blanc."[?:?]".$reset_color.$tab.$f.$reset_color;    
+                echo $fond_date.date("[? Y-m-d H:i:s] ").$reset_color.$tab.$f.$reset_color;    
+            }
+                
             }
             
         } 
