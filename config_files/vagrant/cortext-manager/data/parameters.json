@@ -44,5 +44,9 @@
     "encryption" : "",
     "auth_mode"  : ""
   },
-  "admin" : "root@cortext.dev"
+  "admin" : "root@cortext.dev",
+  "monolog": {
+    "logfile": "/../../log/cortext/manager.log",
+    "name": "Manager"
+  }
 }
