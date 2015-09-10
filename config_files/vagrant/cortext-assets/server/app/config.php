@@ -27,3 +27,6 @@ $parameters['db_options'] = array(
     'user' => DB_USER,
     'password' => DB_PASSWORD
 );
+$parameters['logFile'] = '/../../../log/cortext/assets.log';
+$parameters['logAppName'] = 'Assets';
+$parameters['rootPath'] = __DIR__.'/../documents/';
