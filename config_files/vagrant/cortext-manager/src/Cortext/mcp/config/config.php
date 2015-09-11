@@ -23,15 +23,17 @@ define( "PROGRESS_STARTED", 10 );
 define( "PROGRESS_FINISHED", 100 );
 
 // Paramètres de connexion à la BDD des jobs
-// Double définition pour assurer une rétrocompatibilité avec l'ancien mcp
-$dbServer   = "localhost" ;
-$dbName     = "ct_manager" ;
-$dbUserName = "root" ;
-$dbUserPass = "" ;
+$databases['localhost'] = array( 
+    "dbServer"   => "localhost",
+    "dbPort"     => 3306,
+    "dbName"     => "ct_manager",
+    "dbUserName" => "root",
+    "dbUserPass" => "",
+    "assetsUrl"  => "http://assets.cortext.dev" );
 
 // Liste d'urls pour les points d'API ou les callbacks
-$assetsUrl  = "http://assets.cortext.dev";
-$managerUrl = "http://www.cortext.dev:8080";
+//$assetsUrl  = "http://assets.cortext.dev";
+//$managerUrl = "http://www.cortext.dev:8080";
 
 // Définition des interfaces
 // MCP push to worker
