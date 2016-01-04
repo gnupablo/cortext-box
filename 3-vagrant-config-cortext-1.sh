@@ -1,28 +1,24 @@
 #!/bin/sh
-echo "8.1 Fichiers de configuration de PHP"
 
 #Il faut augmenter les capacités d'upload de fichier, et assurer la compatibilité en autorisant les Short Open Tag. Adapter le chemin pour être à la racine des fichiers de config.
-
+echo "8.1 Fichiers de configuration de PHP"
 cd /vagrant/config_files/
 sudo cp etc/php5/cli/php.ini /etc/php5/cli/php.ini
 sudo cp etc/php5/apache2/php.ini /etc/php5/apache2/php.ini
-echo "8.2 Fichiers de configuration de PostFix"
 
 #Pour travailler en local, afin de permettre de recevoir des mails locaux, postfix est configuré pour recevoir les mails à destination de cortext.dev. Ce réglage ne doit donc pas être reproduit en production. Adapter le chemin pour être à la racine des fichiers de config.
-
+echo "8.2 Fichiers de configuration de PostFix"
 cd /vagrant/config_files/
 sudo cp etc/postfix/main.cf /etc/postfix/main.cf
-echo "8.3 Fichiers de configuration de PHPMyAdmin"
 
 #Cette modification permet d'autoriser la connexion sans mot de passe, car le compte root n'a pas de mot de passe pour l'environnement de dev. A ne pas reproduire en production !!
-
+echo "8.3 Fichiers de configuration de PHPMyAdmin"
 cd /vagrant/config_files/
 sudo cp etc/phpmyadmin/config.inc.php /etc/phpmyadmin/config.inc.php
-
-echo "8.4 Fichiers de configuration du shell"
+sudo ln -s /etc/phpmyadmin/apache.conf /etc/apache2/conf-enabled/phpmyadmin.conf
 
 #Modification pour activer la coloration syntaxique, les alias, et le prompt. A ne pas reproduire en production !!
-
+echo "8.4 Fichiers de configuration du shell"
 cd /vagrant/config_files/
 cp home/vagrant/.bashrc /home/vagrant/.bashrc
 cp home/vagrant/.bash_aliases /home/vagrant/.bash_aliases
@@ -30,10 +26,8 @@ chmod 644 /home/vagrant/.bash_aliases
 sudo cp root/.bashrc /root/.bashrc
 source /home/vagrant/.bashrc
 
-echo "8.5 Fichiers de configuration de Apache 2.4"
-
 #Activation des modules apache
-
+echo "8.5 Fichiers de configuration de Apache 2.4"
 sudo a2enmod rewrite headers 
 sudo a2dismod -f autoindex status access_compat
 
