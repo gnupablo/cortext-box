@@ -7,3 +7,4 @@ Vagrantfile
 
 # Modules Cortext
 /cortext-*
+log/decode_log
