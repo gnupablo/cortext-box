@@ -127,6 +127,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   chef.validation_client_name = "ORGNAME-validator"
 
   # Démarrage des serveurs Cortext
-  # config.vm.provision "shell", path: "start_server.sh", privileged: false, run: "always"
+  config.vm.provision "shell", path: "start_server.sh", privileged: false, run: "always"
 end
 
