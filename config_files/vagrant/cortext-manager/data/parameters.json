@@ -30,7 +30,7 @@
       }
   },   
   "Api": {
-      "url": "http://10.10.10.10:8081",
+      "url": "http://10.10.10.10:3000",
       "createElement": "/elements",
       "createDocument": "/documents",
       "createAnalysis": "/analysis"
