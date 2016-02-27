@@ -24,7 +24,7 @@ dashboardConfig =
         Jobs: {
             name: "Cortext Manager",
             callback: "http://10.10.10.10:3000",
-            callback_json:"http://10.10.10.10:3000/analysis",
+            callback_json:"http://10.10.10.10:3000/api/analysis",
             url: "http://manager.cortext.dev:8080" 
         },
         Viz: {
@@ -33,7 +33,7 @@ dashboardConfig =
             csv: "/view/csv/",
         },
         Api: {
-            url: "http://10.10.10.10:3000",
+            url: "http://10.10.10.10:3000/api",
             createElement: "/elements",
             createDocument: "/documents",
             createAnalysis: "/analysis"
