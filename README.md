@@ -22,10 +22,13 @@ Usage
 -----
 
   * The document root for web projects is  ~/cortext-box/src/cortext
-  * The VM apache web server is accessible at http://192.168.100.100
+  * The VM apache web server is accessible at http://10.10.10.10:8080
   * Use `vagrant ssh` to log into the VM
   * Use `vagrant halt` to shut it down
-  * You can modify the parameters in the file ~/cortext-box/vagrant.conf
+  * Use `vagrant suspend` to hibernate it
+  * Use `vagrant reload` to reboot it
+  * Use `vagrant up` to start it
+  * You can modify the parameters in the file ~/cortext-box/Vagrantfile
 
 # Run Cortext projects
 
@@ -43,7 +46,7 @@ To be commited :
 
  By default, the IP `192.168.100.100` redirects to /src/cortext and any php is interpreted by *nginx* (apache config is also available in the `puppet/modules/apache` subfolder, see bellow)
 
- The diferent projects are accessible directly with thess special ports (default 80 is set to dashboard for now) :
+ The different projects are accessible directly with thess special ports (default 80 is set to dashboard for now) :
    * http://192.168.100.100       -> `auth + manager + dashboard / v2-alpha`
    * http://192.168.100.100:29100 -> `auth`
    * http://192.168.100.100:29200 -> `assets`
@@ -78,8 +81,5 @@ When you want to start again, you juste have to `vagrant up` and you're ready to
     $ `vagrant box list`
 
 > Can I change the configuration of the box ?
-Yes, you just have to edit the `vagrant.conf` file in the root folder.
-
-
-
+Yes, you just have to edit the `Vagrantfile` file in the root folder.
 
