@@ -8,4 +8,7 @@ if [ -e /usr/local/bin/composer -a -e /etc/supervisord.conf ]
 then
    sudo service apache2 restart
    supervisord -u vagrant -q /vagrant/log/supervisor
+else
+   echo "Cette machine semble neuve. Pour l'installer:"
+   echo "/vagrant/install_inside.sh"
 fi
