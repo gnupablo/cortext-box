@@ -1,1 +1,7 @@
-tail -f `ls -rt log/*/api*.log` | php ./decode_log.php $1
+if [ -e /vagrant/ ]
+then
+  dir=/vagrant
+else
+  dir=.
+fi
+tail -f `ls -rt $dir/log/*/api*.log` | php $dir/decode_log.php $1
