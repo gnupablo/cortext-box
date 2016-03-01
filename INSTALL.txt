@@ -16,17 +16,36 @@ Linux headears est nécessaire au bon fonctionnement de Vagrant. Nécessaire don
 
     sudo apt-get install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,')
 
-1.3 Vagrant
+1.3 Virtualbox
+
+Installation du gestionnaire de machine virtuelle Virtualbox.
+
+On ajoute le repository
+
+    echo deb http://download.virtualbox.org/virtualbox/debian vivid contrib | sudo tee --append /etc/apt/sources.list > /dev/null
+
+Puis on ajoute la clé du repo
+
+    wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+
+On lance l'installation de Virtualbox
+
+    sudo apt-get update
+    sudo apt-get install virtualbox-4.3 dkms
+
+1.4 Vagrant
 
 Vagrant est nécessaire dans le cas d'une installation dans une machine virtuelle, pour exécuter la machine virtuelle.
 
 Télécharger la dernière version du package ici: https://www.vagrantup.com/downloads.html
 
+A noter, la version du paquet présent dans le repository Debian n'est pas à jour.
+
 Puis installer le package téléchargé par la commande:
 
     dpkg -i <nom du package>
 
-1.4 BIOS - Virtualization Technology
+1.5 BIOS - Virtualization Technology
 
 Pour une installation en machine virtuelle, l'activation des fonctions de virtualisation au niveau du bios est nécessaire. Pour cela, il faut se rendre dans les paramètres du bios lors du redémarrage du PC physique, pour y trouver puis activer l'option Virtualization Technology (VTx).
 
@@ -45,18 +64,7 @@ Les sources sont récupérés depuis le serveur github par les commandes suivant
     git clone --recursive git@github.com:cortext/cortext-methods.git
 
 
-3. Création du répertoire de log
-
-Dans le cas d'une installation en machine virtuelle, afin que les logs soient accessibles depuis l'extérieur de la machine virtuelle, ils seront regroupés dans un répertoire qu'il convient de créer, depuis le répertoire d'installation de cortext, via la commande :
-
-    mkdir -p log/apache2 log/supervisor log/cortext
-
-
 4. Installation de la machine virtuelle
-
-Remplacer le fichier Vagrantfile de la cortext-box dans le répertoire d'installation de Cortext.
-
-    cp Vagrantfile_Install Vagrantfile
 
 Executer la commande suivante pour que la box soit téléchargée:
 
@@ -89,12 +97,7 @@ Pour lancer l'installation les commandes suivantes suffisent.
 
     sudo apt-get install -y --force-yes apache2 php5 php5-mysql mysql-server phpmyadmin libapache2-mod-wsgi libapache2-mod-php5 mysql-client php-pear curl php5-cli php5-dev php5-gd php5-curl php5-intl postfix mailutils git python-setuptools htop atop nethogs nmap multitail 
 
-NB: L'étape 5.1 a configuré l'installation avec un comptre administrateur de BDD root sans mot de passe. Si nécessaire (en production par exemple), changer le mot de passe root de la BDD par la séquence de commande suivante:
-
-    mysql mysql -u root
-    UPDATE user SET password=PASSWORD('nouveaumotdepasse') WHERE user="root";
-    FLUSH PRIVILEGES;
-    quit;
+NB: L'étape 5.1 a configuré l'installation avec un comptre administrateur de BDD root sans mot de passe.
 
 
 5.3 Installation de Composer
@@ -139,30 +142,23 @@ Pour contourner un bug MongoDB d'écriture dans la BDD, un petit lien s'impose.
 
 L'exécution de meteor une première fois est nécessaire pour la mise à jour à la bonne version et la création de répertoire de travail.
 
-    cd /vagrant
-    cd cortext-projects
+    cd /vagrant/cortext-projects
     meteor
 
 Patienter le temps de la mise à jour, puis il devrait rendre la main sur une erreur. Ce n'est pas grave, l'objectif ici est juste de finaliser l'installation. S'il ne s'arrête pas, faire Ctrl + C pour arrêter Meteor.
 
 
-5.8 Installation de l'API (Node)
+5.8 Installation de Node
 
-On va utiliser le node installé par Meteor en créant des liens. Pour déterminer l'emplacement (dans le chemin entre tools et bin), un htop pendant que meteor fonctionne indiquera l'emplacement utilisé par Meteor pour accéder à node. La valeur indiquée ici correspond à Meteor 0.7.2, celle configurée dans github. Il pourra être nécessaire de modifier l'emplacement.
+On va utiliser la version de node installée par Meteor en créant des liens. Pour déterminer l'emplacement (dans le chemin entre tools et bin), un htop pendant que meteor fonctionne indiquera l'emplacement utilisé par Meteor pour accéder à node. La valeur indiquée ici correspond à Meteor 1.2.1, celle configurée dans github. Il pourra être nécessaire de modifier l'emplacement.
 
-    sudo ln -s /home/vagrant/.meteor/tools/8e197f29c5/bin/node /usr/local/bin/node
-    sudo ln -s /home/vagrant/.meteor/tools/8e197f29c5/bin/npm /usr/local/bin/npm
-
-Téléchargement des paquets pour Node
-
-    cd /vagrant
-    cd cortext-projects/private/api
-    sudo npm install
+    sudo ln -s /home/vagrant/.meteor/packages/meteor-tool/1.1.10/mt-os.linux.x86_64/dev_bundle/bin/node /usr/local/bin/node
+    sudo ln -s /home/vagrant/.meteor/packages/meteor-tool/1.1.10/mt-os.linux.x86_64/dev_bundle/bin/npm /usr/local/bin/npm
 
 
 6. Installation des BDD
 
-Création de tables par l'exécution des scripts suivants. Les scripts contiennent également la création des utilisateurs à vide par défaut, il faut donc adapter les mots de passe pour la production.
+Création de tables par l'exécution des scripts suivants.
 
     mysql -u root < /vagrant/scripts_sql/bdd_cortext.sql
     mysql -u root ct_manager < /vagrant/cortext-manager/data/table-script-datas.sql
@@ -173,7 +169,7 @@ Création de tables par l'exécution des scripts suivants. Les scripts contienne
 Les étapes ci-dessous correspondent à l'installation dans une machine virtuelle. Elles pré-supposent que les fichiers de configuration soient disponibles dans le répertoire /vagrant/config_files de la machine virtuelle, qui correspond au répertoire ./config_files à l'extérieur de cette machine. En conséquence, les chemins peuvent être à adapter en fonction de l'environnement d'installation.
 
 Versions au moment de la rédaction de ce document :
-- PHP 5.6.6-2
+- PHP 5.6.17-0
 - Apache 2.4.10
 
 
@@ -243,8 +239,9 @@ Les fichiers de config sont présents dans le répertoire config_files/vagrant/.
 
     cp config_files/vagrant/cortext-manager/data/parameters.json cortext-manager/data/parameters.json
 
+    cp config_files/vagrant/cortext-manager/src/Cortext/mcp/config/config.php cortext-manager/src/Cortext/mcp/config/
+
     cp config_files/vagrant/cortext-projects/env/parameters.js cortext-projects/env/parameters.js
-    cp config_files/vagrant/cortext-projects/private/api/config.json cortext-projects/private/api/config.json
 
     sudo cp config_files/etc/supervisord.conf /etc/supervisord.conf
 
@@ -257,7 +254,7 @@ Les fichiers de config sont présents dans le répertoire config_files/vagrant/.
 Il faut redéfinir les noms de domaines en local pour pointer sur la machine local.
 
     sudo su
-    sudo echo "127.0.0.1 auth.cortext.dev assets.cortext.dev cortext.dev www.cortext.dev documents.cortext.dev" >> /etc/hosts
+    echo "127.0.0.1 auth.cortext.dev assets.cortext.dev cortext.dev www.cortext.dev documents.cortext.dev" >> /etc/hosts
     exit
 
 Il faut exécuter cette commande 2 fois. Une fois dans la machine virtuelle, et une fois sur la machine physique dans un autre terminal donc, et si ce n'est pas déjà fait.
@@ -291,8 +288,7 @@ Les modules Cortext se basent sur des modules PHP qu'il faut récupérer de mani
 
 Le module Cortext-Auth possède un script de construction des tables de la base de données qui lui sont nécessaires.
 
-    cd /vagrant
-    cd cortext-auth/server/data
+    cd /vagrant/cortext-auth/server/data
     php rebuild_db.php
 
 
@@ -303,6 +299,7 @@ Pour éviter un bug au lancement des modules, les fichiers logs sont créés s'i
     cd /vagrant
     mkdir -p cortext-auth/server/log
     touch cortext-auth/server/log/ctauth.log
+    mkdir -p cortext-assets/server/log
     touch cortext-assets/server/log/assets.log
     mkdir -p cortext-manager/log
 
@@ -315,13 +312,6 @@ Création de répertoire manquant, nécessaire au fonctionnement de Cortext
     mkdir -p cortext-assets/server/documents
 
 
-11. Activation des serveurs au démarrage
-
-Pour que les serveurs soient exécutés directement au démarrage de la machine virtuelle, il faut lancer le script depuis le Vagrantfile. En production, il faudra utiliser une autre manière de démarrer les serveurs via supervisor.
-
-    cp /vagrant/Vagrantfile_Running /vagrant/Vagrantfile
-
-
 12. Reboot
 
 L'installation est terminée, il ne reste plus qu'à quitter la machine virtuelle et la redémarrer. En production, il faudra redémarrer le serveur.
@@ -330,7 +320,7 @@ L'installation est terminée, il ne reste plus qu'à quitter la machine virtuell
     vagrant reload
 
 
-13. Test
+13. Tests
 
 Pour tester l'installation, il faut accéder à la page http://10.10.10.10:3000/ depuis un navigateur. Cela correspond à l'IP local de la machine virtuel, sur le port de Météor qui gère le frontend de Cortext.
 
