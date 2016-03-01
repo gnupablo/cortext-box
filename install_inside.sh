@@ -23,7 +23,7 @@ sudo mv phpunit.phar /usr/bin/phpunit
 
 tput setab 7; tput setaf 1;echo "5.5 Installation de ZeroMQ$(tput sgr 0)"
 cd /vagrant/cortext-manager/src/Cortext/mcp
-./install_zmq.sh --force-yes
+echo "" | ./install_zmq.sh --force-yes
 
 
 tput setab 7; tput setaf 1;echo "5.6 Installation de Supervisor$(tput sgr 0)"
