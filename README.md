@@ -8,16 +8,21 @@ Cortext Box
 
 ## bootstrap the cortext-box !
 
-Then execute these instructions to put the vagrant file on `/home/<user>/boxes/cortext-box`. Just press Enter to the questions during the installation of ZMQ.
+Then execute these instructions to put the vagrant file on `/home/<user>/boxes/cortext-box`. Do the addition to /etc/hosts only once, if you install multiple boxes.
 
     $ mkdir ~/boxes
     $ cd ~/boxes
     $ git clone --recursive git@github.com:cortext/cortext-box.git
     $ cd cortext-box
-    $ install.sh
-    $ /vagrant/install_inside.sh 
+    $ ./install.sh
+    $ install_inside.sh 
+    $ exit
+    $ echo "127.0.0.1 auth.cortext.dev assets.cortext.dev cortext.dev www.cortext.dev documents.cortext.dev" | sudo tee --append /etc/hosts > /dev/null
+    $ vagrant reload
 
 That's it !
+
+You can go to http://10.10.10.10:3000
 
 Usage
 -----

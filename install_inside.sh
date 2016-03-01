@@ -169,13 +169,19 @@ cd /vagrant
 mkdir -p cortext-assets/server/documents
 
 
-tput setab 7; tput setaf 1;echo "12 Dummy Data$(tput sgr 0)"
+tput setab 7; tput setaf 1;echo "12 Installation des scripts$(tput sgr 0)"
+cd /vagrant/cortext-methods
+sudo ./install-scripts.sh
+
+
+tput setab 7; tput setaf 1;echo "13 Dummy Data$(tput sgr 0)"
 mysql ct_auth -u root < /vagrant/scripts_sql/dummy_data.sql
 
 
-tput setab 7; tput setaf 1;echo "13 Fin$(tput sgr 0)"
+tput setab 7; tput setaf 1;echo "14 Fin$(tput sgr 0)"
 sudo service apache2 restart
 supervisord -u vagrant -q /vagrant/log/supervisor
-#echo Rebooter la machine virtuelle via les commandes suivantes:
-#echo exit
-#echo vagrant reload
+echo "Rebooter la machine virtuelle via les commandes suivantes:"
+echo "exit"
+echo "vagrant reload"
+echo "Puis acceder à la page web http://10.10.10.10:3000"
