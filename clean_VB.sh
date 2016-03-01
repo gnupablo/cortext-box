@@ -25,12 +25,6 @@ then
       echo -e "\e[1;32m=== Suppression de $i\e[0m"
       rm -rf $i
    done
-
-   echo -e "\e[1;32m=== Reset du Vagrantfile pour une nouvelle installation\e[0m"
-   if [ -f Vagrantfile_Install ]
-   then
-      cp -f Vagrantfile_Install Vagrantfile
-   fi
 else
    echo -e "\e[1;32m=== Annulation de la suppression\e[0m"
 fi
