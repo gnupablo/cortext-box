@@ -8,7 +8,7 @@ Cortext Box
 
 ## bootstrap the cortext-box !
 
-Then execute these instructions to put the vagrant file on `/home/<user>/cortext-box`. Just press Enter to the questions during the installation of ZMQ.
+Then execute these instructions to put the vagrant file on `/home/<user>/boxes/cortext-box`. Just press Enter to the questions during the installation of ZMQ.
 
     $ mkdir ~/boxes
     $ cd ~/boxes
