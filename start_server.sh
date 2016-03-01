@@ -10,5 +10,6 @@ then
    supervisord -u vagrant -q /vagrant/log/supervisor
 else
    echo "Cette machine semble neuve. Pour l'installer:"
-   echo "/vagrant/install_inside.sh"
+   echo "install_inside.sh"
+   echo 'export PATH=$PATH:/vagrant' >> /home/vagrant/.bashrc
 fi
