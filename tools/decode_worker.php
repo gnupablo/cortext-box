@@ -97,7 +97,7 @@ while($f = fgets(STDIN)){
     $pattern = '/^==>(.*)<==$/';
 
     //détection du mot error, passage en rouge de la date
-    if(strpos($f, "error") or strpos("Error", $f) or strpos($f, "CRITICAL") ){
+    if(strpos($f, "error") or strpos("Error", $f) or strpos($f, "CRITICAL") or strpos($f, "WARNING") ){
         $fond_date = $fond_rouge.$texte_blanc;
     }else {
         $fond_date = $texte_vert_clair;
