@@ -173,6 +173,7 @@ tput setab 7; tput setaf 1;echo "12 Installation des scripts$(tput sgr 0)"
 cd /vagrant/cortext-methods
 sudo ./install-scripts.sh
 tar xzf /vagrant/lib/lib_rickshaw_media.tar.gz -C /vagrant/cortext-methods/
+ln -s /vagrant/cortext-methods/lib/ /vagrant/cortext-assets/server/documents/lib
 
 
 tput setab 7; tput setaf 1;echo "13 Dummy Data$(tput sgr 0)"
