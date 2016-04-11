@@ -161,6 +161,7 @@ On va utiliser la version de node installée par Meteor en créant des liens. Po
 Création de tables par l'exécution des scripts suivants.
 
     mysql -u root < /vagrant/scripts_sql/bdd_cortext.sql
+    mysql -u root ct_manager < /vagrant/scripts_sql/views_cortext.sql
     mysql -u root ct_manager < /vagrant/cortext-manager/data/table-script-datas.sql
 
 
@@ -324,18 +325,28 @@ L'installation est terminée, il ne reste plus qu'à quitter la machine virtuell
 
 Pour tester l'installation, il faut accéder à la page http://10.10.10.10:3000/ depuis un navigateur. Cela correspond à l'IP local de la machine virtuel, sur le port de Météor qui gère le frontend de Cortext.
 
+L'accès à phpmyadmin se fait via l'url http://mcp.cortext.dev:8080/phpmyadmin/
+
 
 14. Dummy Data
 
 Pour l'environnement de test, une création rapide de deux comptes utilisateurs est possible en suivant la procédure suivante, depuis la machine virtuelle :
 
     mysql ct_auth -u root < /vagrant/scripts_sql/dummy_data.sql
-    
-# Un profil utilisateur :
-#   login : vagrant@cortext.dev
-#   mdp : vagrant
-#
-# Un profil administrateur :
-#   login : root@cortext.dev
-#   mdp : vagrant
+    mysql ct_manager -u root < /vagrant/dummy-data/job.sql
+    mysql ct_assets -u root < /vagrant/dummy-data/document.sql
+    cd /vagrant/dummy-data
+    wget https://file.cortext.net/files/dummy-assets.tar.gz
+    tar xzf /vagrant/dummy-data/dummy-assets.tar.gz -C /vagrant/cortext-assets/server/documents/
+    ./mongorestore -h 127.0.0.1 --port 3001 -d meteor dump/meteor
 
+Le dump a été obtenu par la commande:
+# ./mongodump -h 127.0.0.1 --port 3001 -d meteor
+    
+Un profil utilisateur :
+    login : vagrant@cortext.dev
+    mdp : vagrant
+
+Un profil administrateur :
+    login : root@cortext.dev
+    mdp : vagrant
