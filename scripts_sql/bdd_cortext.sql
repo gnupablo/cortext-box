@@ -56,15 +56,3 @@ CREATE TABLE IF NOT EXISTS `script` (
   `comment` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ;
-
-USE `ct_manager`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getNextJob` AS select `job`.`id` AS `id`,`job`.`script_path` AS `script_path`,`job`.`result_path` AS `result_path`,`job`.`context` AS `context`,`job`.`state` AS `state`,`ct_auth`.`users`.`name` AS `user`,`job`.`label` AS `label`,`job`.`created_at` AS `created_at`,`job`.`updated_at` AS `updated_at` from (`job` join `ct_auth`.`users`) where ((`job`.`state` = '1') and (`job`.`user_id` = `ct_auth`.`users`.`id`)) order by `job`.`id` limit 1;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `jobWaitingForWorker` AS select `job`.`id` AS `id`,`job`.`script_path` AS `script_path`,`job`.`result_path` AS `result_path`,`job`.`context` AS `context`,`job`.`state` AS `state`,`job`.`user_id` AS `user_id`,`job`.`label` AS `label`,`job`.`created_at` AS `created_at`,`job`.`updated_at` AS `updated_at`,`ct_auth`.`users`.`name` AS `user`,`script`.`label` AS `script` from ((`job` left join `ct_auth`.`users` on((`job`.`user_id` = `ct_auth`.`users`.`id`))) left join `script` on((`job`.`script_id` = `script`.`id`))) where (`job`.`state` = '2') order by `job`.`id`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `monitor_job` AS select `job`.`id` AS `id`,`job`.`state` AS `state`,`ct_auth`.`users`.`name` AS `user`,`job`.`label` AS `label`,`job`.`created_at` AS `created_at`,`job`.`updated_at` AS `updated_at`,`job`.`context` AS `context`,`job`.`result_path` AS `result_path`,`script`.`label` AS `script` from ((`job` left join `ct_auth`.`users` on((`job`.`user_id` = `ct_auth`.`users`.`id`))) left join `script` on((`job`.`script_id` = `script`.`id`))) order by `job`.`id` desc;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `non_9_job` AS select `job`.`id` AS `id`,`job`.`state` AS `state`,`ct_auth`.`users`.`name` AS `user`,`job`.`label` AS `label`,`job`.`created_at` AS `created_at`,`job`.`updated_at` AS `updated_at`,`job`.`context` AS `context`,`job`.`result_path` AS `result_path` from (`job` join `ct_auth`.`users`) where ((`job`.`user_id` = `ct_auth`.`users`.`id`) and (`job`.`state` < 9)) order by `job`.`id` desc;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `restart_queued_job` AS select `job`.`id` AS `id`,`job`.`state` AS `state`,`ct_auth`.`users`.`name` AS `user`,`job`.`label` AS `label`,`job`.`created_at` AS `created_at`,timediff(now(),`job`.`created_at`) AS `since_creation`,`job`.`updated_at` AS `updated_at`,timediff(now(),`job`.`updated_at`) AS `since_last_update` from (`job` join `ct_auth`.`users`) where ((`job`.`user_id` = `ct_auth`.`users`.`id`) and (`job`.`state` > 1) and (`job`.`state` < 8)) order by `job`.`updated_at` desc;

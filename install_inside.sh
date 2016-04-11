@@ -54,6 +54,7 @@ sudo ln -s /home/vagrant/.meteor/packages/meteor-tool/1.1.10/mt-os.linux.x86_64/
 
 tput setab 7; tput setaf 1;echo "6. Installation des BDD$(tput sgr 0)"
 mysql -u root < /vagrant/scripts_sql/bdd_cortext.sql
+mysql -u root ct_manager < /vagrant/scripts_sql/views_cortext.sql
 mysql -u root ct_manager< /vagrant/cortext-manager/data/table-script-datas.sql
 
 
