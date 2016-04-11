@@ -44,12 +44,20 @@ sleep 5
 
 
 tput setab 7; tput setaf 1;echo "5.8 Installation de Node$(tput sgr 0)"
-while [ ! -f /home/vagrant/.meteor/packages/meteor-tool/1.1.10/mt-os.linux.x86_64/dev_bundle/bin/node ]
+while [ ! -f /home/vagrant/.meteor/packages/meteor-tool/*/mt-os.linux.x86_64/dev_bundle/bin/node ]
 do
   sleep 1
 done
-sudo ln -s /home/vagrant/.meteor/packages/meteor-tool/1.1.10/mt-os.linux.x86_64/dev_bundle/bin/node /usr/local/bin/node
-sudo ln -s /home/vagrant/.meteor/packages/meteor-tool/1.1.10/mt-os.linux.x86_64/dev_bundle/bin/npm /usr/local/bin/npm
+for i in `find /home/vagrant/.meteor/packages/meteor-tool/*/mt-os.linux.x86_64/dev_bundle/bin/ -name node`
+do
+  node=$i
+done
+for j in `find /home/vagrant/.meteor/packages/meteor-tool/*/mt-os.linux.x86_64/dev_bundle/bin/ -name npm`
+do
+  npm=$j
+done
+sudo ln -s $node /usr/local/bin/node
+sudo ln -s $npm /usr/local/bin/npm
 
 
 tput setab 7; tput setaf 1;echo "6. Installation des BDD$(tput sgr 0)"
@@ -178,10 +186,19 @@ ln -s /vagrant/cortext-methods/lib/ /vagrant/cortext-assets/server/documents/lib
 
 
 tput setab 7; tput setaf 1;echo "13 Dummy Data$(tput sgr 0)"
-mysql ct_auth -u root < /vagrant/scripts_sql/dummy_data.sql
+mysql ct_auth -u root < /vagrant/dummy-data/users.sql
+mysql ct_manager -u root < /vagrant/dummy-data/job.sql
+mysql ct_assets -u root < /vagrant/dummy-data/document.sql
+cd /vagrant/dummy-data
+wget https://file.cortext.net/files/dummy-assets.tar.gz
+tar xzf /vagrant/dummy-data/dummy-assets.tar.gz -C /vagrant/cortext-assets/server/documents/
+./mongorestore -h 127.0.0.1 --port 3001 -d meteor dump/meteor
+# dump obtenu par la commande:
+# ./mongodump -h 127.0.0.1 --port 3001 -d meteor
 
 
 tput setab 7; tput setaf 1;echo "14 Fin$(tput sgr 0)"
+cd
 sudo service apache2 restart
 supervisord -u vagrant -q /vagrant/log/supervisor
 echo "Rebooter la machine virtuelle via les commandes suivantes:"

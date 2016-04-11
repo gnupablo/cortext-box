@@ -24,5 +24,5 @@ git clone --recursive git@github.com:cortext/cortext-methods.git
 
 tput setab 7; tput setaf 1;echo "4. Téléchargement de la machine virtuelle$(tput sgr 0)"
 echo "Une fois la machine virtuelle démarrée, lancer la suite de l'exécution par la commande suivante:"
-echo "/vagrant/install_inside.sh"
+echo "install_inside.sh"
 vagrant up && vagrant ssh
