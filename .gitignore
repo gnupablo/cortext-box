@@ -4,6 +4,7 @@
 .vagrant
 *.box
 Vagrantfile
+dummy-data/dummy-assets.tar.gz
 
 # Modules Cortext
 /cortext-*
