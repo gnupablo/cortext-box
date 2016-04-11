@@ -90,7 +90,7 @@ cp home/vagrant/.bashrc /home/vagrant/.bashrc
 cp home/vagrant/.bash_aliases /home/vagrant/.bash_aliases
 chmod 644 /home/vagrant/.bash_aliases
 sudo cp root/.bashrc /root/.bashrc
-bash /home/vagrant/.bashrc
+sh /home/vagrant/.bashrc
 
 
 tput setab 7; tput setaf 1;echo "7.5 Configuration Apache$(tput sgr 0)"
@@ -192,6 +192,7 @@ mysql ct_assets -u root < /vagrant/dummy-data/document.sql
 cd /vagrant/dummy-data
 wget https://file.cortext.net/files/dummy-assets.tar.gz
 tar xzf /vagrant/dummy-data/dummy-assets.tar.gz -C /vagrant/cortext-assets/server/documents/
+rm /vagrant/dummy-data/dummy-assets.tar.gz
 ./mongorestore -h 127.0.0.1 --port 3001 -d meteor dump/meteor
 # dump obtenu par la commande:
 # ./mongodump -h 127.0.0.1 --port 3001 -d meteor
