@@ -193,7 +193,7 @@ cd /vagrant/dummy-data
 wget https://file.cortext.net/files/dummy-assets.tar.gz
 tar xzf /vagrant/dummy-data/dummy-assets.tar.gz -C /vagrant/cortext-assets/server/documents/
 rm /vagrant/dummy-data/dummy-assets.tar.gz
-./mongorestore -h 127.0.0.1 --port 3001 -d meteor dump/meteor
+./mongorestore -h 127.0.0.1 --port 3001 --drop -d meteor dump/meteor
 # dump obtenu par la commande:
 # ./mongodump -h 127.0.0.1 --port 3001 -d meteor
 
