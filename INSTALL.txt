@@ -161,7 +161,6 @@ On va utiliser la version de node installée par Meteor en créant des liens. Po
 Création de tables par l'exécution des scripts suivants.
 
     mysql -u root < /vagrant/scripts_sql/bdd_cortext.sql
-    mysql -u root ct_manager < /vagrant/scripts_sql/views_cortext.sql
     mysql -u root ct_manager < /vagrant/cortext-manager/data/table-script-datas.sql
 
 
@@ -292,6 +291,10 @@ Le module Cortext-Auth possède un script de construction des tables de la base 
     cd /vagrant/cortext-auth/server/data
     php rebuild_db.php
 
+Enfin, on créé des vues pour simplifier l'utilisation de la base.
+
+    mysql -u root ct_manager < /vagrant/scripts_sql/views_cortext.sql
+
 
 10. Initialisation des fichiers log
 
@@ -335,10 +338,10 @@ Pour l'environnement de test, une création rapide de deux comptes utilisateurs 
     mysql ct_auth -u root < /vagrant/scripts_sql/dummy_data.sql
     mysql ct_manager -u root < /vagrant/dummy-data/job.sql
     mysql ct_assets -u root < /vagrant/dummy-data/document.sql
-    cd /vagrant/dummy-data
-    wget https://file.cortext.net/files/dummy-assets.tar.gz
+    wget https://file.cortext.net/files/dummy-assets.tar.gz -O /vagrant/dummy-data/dummy-assets.tar.gz
     tar xzf /vagrant/dummy-data/dummy-assets.tar.gz -C /vagrant/cortext-assets/server/documents/
-    ./mongorestore -h 127.0.0.1 --port 3001 -d meteor dump/meteor
+    rm /vagrant/dummy-data/dummy-assets.tar.gz
+    /vagrant/dummy-data/mongorestore -h 127.0.0.1 --port 3001 --drop -d meteor /vagrant/dummy-data/dump/meteor
 
 Le dump a été obtenu par la commande:
 # ./mongodump -h 127.0.0.1 --port 3001 -d meteor

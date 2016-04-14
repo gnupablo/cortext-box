@@ -64,10 +64,7 @@ tput setab 7; tput setaf 1;echo "6. Installation des BDD$(tput sgr 0)"
 tput setab 7; tput setaf 1;echo "6.1 Creation des tables$(tput sgr 0)"
 mysql -u root < /vagrant/scripts_sql/bdd_cortext.sql
 
-tput setab 7; tput setaf 1;echo "6.2 Creation des vues$(tput sgr 0)"
-mysql -u root ct_manager < /vagrant/scripts_sql/views_cortext.sql
-
-tput setab 7; tput setaf 1;echo "6.3 Insertion de la table des scripts$(tput sgr 0)"
+tput setab 7; tput setaf 1;echo "6.2 Insertion de la table des scripts$(tput sgr 0)"
 mysql -u root ct_manager< /vagrant/cortext-manager/data/table-script-datas.sql
 
 
@@ -164,9 +161,13 @@ cd /vagrant/cortext-manager
 composer update
 
 
-tput setab 7; tput setaf 1;echo "9. Reconstruction des BDD$(tput sgr 0)"
+tput setab 7; tput setaf 1;echo "9. Finalisation des BDD$(tput sgr 0)"
+tput setab 7; tput setaf 1;echo "9.1 Reconstruction des BDD$(tput sgr 0)"
 cd /vagrant/cortext-auth/server/data
 php rebuild_db.php
+
+tput setab 7; tput setaf 1;echo "9.2 Creation des vues$(tput sgr 0)"
+mysql -u root ct_manager < /vagrant/scripts_sql/views_cortext.sql
 
 
 tput setab 7; tput setaf 1;echo "10 Initialisation des fichiers log$(tput sgr 0)"
