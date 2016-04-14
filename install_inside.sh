@@ -61,8 +61,13 @@ sudo ln -s $npm /usr/local/bin/npm
 
 
 tput setab 7; tput setaf 1;echo "6. Installation des BDD$(tput sgr 0)"
+tput setab 7; tput setaf 1;echo "6.1 Creation des tables$(tput sgr 0)"
 mysql -u root < /vagrant/scripts_sql/bdd_cortext.sql
+
+tput setab 7; tput setaf 1;echo "6.2 Creation des vues$(tput sgr 0)"
 mysql -u root ct_manager < /vagrant/scripts_sql/views_cortext.sql
+
+tput setab 7; tput setaf 1;echo "6.3 Insertion de la table des scripts$(tput sgr 0)"
 mysql -u root ct_manager< /vagrant/cortext-manager/data/table-script-datas.sql
 
 
