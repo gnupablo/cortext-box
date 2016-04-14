@@ -208,7 +208,7 @@ tput setab 7; tput setaf 1;echo "13.5 Decompression des corpus$(tput sgr 0)"
 tar xzf /vagrant/dummy-data/dummy-assets.tar.gz -C /vagrant/cortext-assets/server/documents/
 rm /vagrant/dummy-data/dummy-assets.tar.gz
 
-tput setab 7; tput setaf 1;echo "13.6 Restauration de la base Meteor(tput sgr 0)"
+tput setab 7; tput setaf 1;echo "13.6 Restauration de la base Meteor$(tput sgr 0)"
 /vagrant/dummy-data/mongorestore -h 127.0.0.1 --port 3001 --drop -d meteor /vagrant/dummy-data/dump/meteor
 # dump obtenu par la commande:
 # ./mongodump -h 127.0.0.1 --port 3001 -d meteor
