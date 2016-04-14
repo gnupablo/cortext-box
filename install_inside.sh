@@ -191,14 +191,24 @@ ln -s /vagrant/cortext-methods/lib/ /vagrant/cortext-assets/server/documents/lib
 
 
 tput setab 7; tput setaf 1;echo "13 Dummy Data$(tput sgr 0)"
+tput setab 7; tput setaf 1;echo "13.1 Insertion dans ct_auth$(tput sgr 0)"
 mysql ct_auth -u root < /vagrant/dummy-data/users.sql
+
+tput setab 7; tput setaf 1;echo "13.2 Insertion dans ct_manager$(tput sgr 0)"
 mysql ct_manager -u root < /vagrant/dummy-data/job.sql
+
+tput setab 7; tput setaf 1;echo "13.3 Insertion dans ct_assetsr$(tput sgr 0)"
 mysql ct_assets -u root < /vagrant/dummy-data/document.sql
-cd /vagrant/dummy-data
-wget https://file.cortext.net/files/dummy-assets.tar.gz
+
+tput setab 7; tput setaf 1;echo "13.4 Telechargement des corpus$(tput sgr 0)"
+wget https://file.cortext.net/files/dummy-assets.tar.gz -O /vagrant/dummy-data/dummy-assets.tar.gz
+
+tput setab 7; tput setaf 1;echo "13.5 Decompression des corpus$(tput sgr 0)"
 tar xzf /vagrant/dummy-data/dummy-assets.tar.gz -C /vagrant/cortext-assets/server/documents/
 rm /vagrant/dummy-data/dummy-assets.tar.gz
-./mongorestore -h 127.0.0.1 --port 3001 --drop -d meteor dump/meteor
+
+tput setab 7; tput setaf 1;echo "13.6 Restauration de la base Meteor(tput sgr 0)"
+/vagrant/dummy-data/mongorestore -h 127.0.0.1 --port 3001 --drop -d meteor /vagrant/dummy-data/dump/meteor
 # dump obtenu par la commande:
 # ./mongodump -h 127.0.0.1 --port 3001 -d meteor
 
