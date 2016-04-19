@@ -25,5 +25,7 @@
       "encryption" : "",
       "auth_mode"  : ""
     },
-    "manager" : "http://manager.cortext.dev:8080"
+    "manager" : "http://manager.cortext.dev:8080",
+    "admin" : "vagrant@cortext.dev",
+    "adminList" : "vagrant@cortext.dev"
 }
