@@ -12,7 +12,7 @@ Then execute these instructions to put the vagrant file on `/home/<user>/boxes/c
 
     $ mkdir ~/boxes
     $ cd ~/boxes
-    $ git clone --recursive git@github.com:cortext/cortext-box.git
+    $ git clone --recursive -b risis_v1 git@github.com:cortext/cortext-box.git
     $ cd cortext-box
     $ ./install.sh
     $ install_inside.sh 

@@ -54,14 +54,14 @@ Pour une installation en machine virtuelle, l'activation des fonctions de virtua
 
 Les sources sont récupérés depuis le serveur github par les commandes suivantes, à exécuter dans le répertoire qui va bien:
 
-    git clone --recursive git@github.com:cortext/cortext-auth.git
+    git clone --recursive -b risis_v1 git@github.com:cortext/cortext-auth.git
     cd cortext-auth/server/vendor/cortext/silex-simpleuser
     git checkout master
     cd ../../../../..
-    git clone --recursive git@github.com:cortext/cortext-assets.git
-    git clone --recursive git@github.com:cortext/cortext-manager.git
-    git clone --recursive git@github.com:cortext/cortext-projects.git
-    git clone --recursive git@github.com:cortext/cortext-methods.git
+    git clone --recursive -b risis_v1 git@github.com:cortext/cortext-assets.git
+    git clone --recursive -b risis_v1 git@github.com:cortext/cortext-manager.git
+    git clone --recursive -b risis_v1 git@github.com:cortext/cortext-projects.git
+    git clone --recursive -b risis git@github.com:cortext/cortext-methods.git
 
 
 4. Installation de la machine virtuelle
