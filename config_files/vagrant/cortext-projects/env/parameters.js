@@ -41,7 +41,11 @@ dashboardConfig =
     },
     common: {
         callback : "http://10.10.10.10:3000",
-        refreshRate : 5000      
+        refreshRate : 5000,
+        urlTermsOfServices: "http://auth.cortext.dev:8080/terms"
+    },
+    mail: {
+        smtp: "smtp://localhost:25"
     }
 
 };
