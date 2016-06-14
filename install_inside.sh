@@ -118,6 +118,10 @@ tput setab 7; tput setaf 1;echo "7.6 Fichiers de configuration des modules Corte
 
 cd /vagrant
 cp config_files/vagrant/cortext-auth/server/data/parameters.json cortext-auth/server/data/parameters.json
+cp config_files/vagrant/cortext-auth/server/views/cgu.twig cortext-auth/server/views/cgu.twig
+cp config_files/vagrant/cortext-auth/server/views/conditions.twig cortext-auth/server/views/conditions.twig
+cp config_files/vagrant/cortext-auth/server/views/mentions.twig cortext-auth/server/views/mentions.twig
+cp config_files/vagrant/cortext-auth/server/views/credits.twig cortext-auth/server/views/credits.twig
 cp config_files/vagrant/cortext-manager/data/parameters.json cortext-manager/data/parameters.json
 cp config_files/vagrant/cortext-manager/src/Cortext/mcp/config/config.php cortext-manager/src/Cortext/mcp/config/
 cp config_files/vagrant/cortext-projects/env/parameters.js cortext-projects/env/parameters.js

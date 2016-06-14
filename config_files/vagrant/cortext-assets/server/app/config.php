@@ -11,6 +11,7 @@ define('URL_OAUTH_SERVER','http://auth.cortext.dev');
 define('URL_MANAGER','http://manager.cortext.dev');
 define('URL_FILES','http://documents.cortext.dev:8080/');
 define('URL_HTTP_HOST_EXTERNAL','http://assets.cortext.dev:8080');
+define('URL_CGU','http://auth.cortext.dev:8080/cgu');
 
 //debug
 define('APP_DEBUG', true);

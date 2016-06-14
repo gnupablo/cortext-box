@@ -37,15 +37,16 @@ dashboardConfig =
             createElement: "/elements",
             createDocument: "/documents",
             createAnalysis: "/analysis"
-        }
+	}
     },
     common: {
         callback : "http://10.10.10.10:3000",
-        refreshRate : 5000,
-        urlTermsOfServices: "http://auth.cortext.dev:8080/terms"
-    },
-    mail: {
-        smtp: "smtp://localhost:25"
+        urlCGU: "http://auth.cortext.dev:8080/cgu",
+        urlCredits: "http://auth.cortext.dev:8080/credits",
+        urlMentions: "http://auth.cortext.dev:8080/mentions-legales",
+        urlContact: "http://www.cortext.net/contact",
+        urlManagerv1: "http://manager.cortext.net",
+        refreshRate : 5000
     }
 
 };
