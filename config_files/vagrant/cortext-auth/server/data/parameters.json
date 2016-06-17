@@ -27,5 +27,6 @@
     },
     "manager" : "http://manager.cortext.dev:8080",
     "admin" : "vagrant@cortext.dev",
-    "adminList" : "vagrant@cortext.dev"
+    "adminList" : "vagrant@cortext.dev",
+    "platform_name" : "Cortext Box"
 }
