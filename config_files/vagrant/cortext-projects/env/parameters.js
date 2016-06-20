@@ -47,7 +47,9 @@ dashboardConfig =
         urlContact: "http://www.cortext.net/contact",
         urlManagerv1: "http://manager.cortext.net",
         refreshRate : 5000
+    },
+    mail: {
+        smtp: "smtp://localhost:25"
     }
-
 };
       
