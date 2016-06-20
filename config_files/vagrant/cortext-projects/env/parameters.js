@@ -31,6 +31,7 @@ dashboardConfig =
             pdf: "/view/pdf/",
             json: "http://graphs.cortext.dev:8080/open/",
             csv: "/view/csv/",
+            gexf: "http://documents.cortext.dev:8080/lib/mapexplorer/explorerjs.html?file="
         },
         Api: {
             url: "http://10.10.10.10:3000/api",
