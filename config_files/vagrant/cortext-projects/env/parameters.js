@@ -50,7 +50,7 @@ dashboardConfig =
         refreshRate : 5000
     },
     design: {
-        activateHelp: true
+        activateHelp: false
     },
     mail: {
         smtp: "smtp://localhost:25"

@@ -17,7 +17,7 @@ tput setab 7; tput setaf 1;echo "3.4 Cortext-manager$(tput sgr 0)"
 git clone -b risis_v1 --recursive git@github.com:cortext/cortext-manager.git
 
 tput setab 7; tput setaf 1;echo "3.5 Cortext-projects$(tput sgr 0)"
-git clone -b risis_v1 --recursive git@github.com:cortext/cortext-projects.git
+git clone -b risis_v2 --recursive git@github.com:cortext/cortext-projects.git
 
 tput setab 7; tput setaf 1;echo "3.6 Cortext-methods$(tput sgr 0)"
 git clone -b risis --recursive git@github.com:cortext/cortext-methods.git
