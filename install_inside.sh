@@ -236,4 +236,9 @@ supervisord -u vagrant -q /vagrant/log/supervisor
 echo "Rebooter la machine virtuelle via les commandes suivantes:"
 echo "exit"
 echo "vagrant reload"
-echo "Puis acceder à la page web http://10.10.10.10:3000"
+if [ -e /vagrant/win_install.flag ]
+then
+  echo "Puis acceder à la page web http://127.0.0.1:3000"
+else
+  echo "Puis acceder à la page web http://10.10.10.10:3000"
+fi
