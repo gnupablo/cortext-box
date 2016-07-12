@@ -8,7 +8,7 @@ Cortext Box
 
 ## bootstrap the cortext-box !
 
-Then execute these instructions to put the vagrant file on `/home/<user>/boxes/cortext-box`. Do the addition to /etc/hosts only once, if you install multiple boxes.
+Then execute these instructions to put the vagrant file on `/home/<user>/boxes/cortext-box`. Do the addition to /etc/hosts only once, if you install multiple boxes. (NB: If you're in windows, replace ./install.sh by install_win.bat)
 
     $ mkdir ~/boxes
     $ cd ~/boxes
