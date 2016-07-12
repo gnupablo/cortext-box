@@ -1,3 +1,4 @@
+@echo off
 echo "3. Récupération des sources depuis GitHub"
 
 echo "3.1 Cortext-auth"
@@ -20,13 +21,20 @@ git clone --recursive git@github.com:cortext/cortext-projects.git
 echo "3.6 Cortext-methods"
 git clone --recursive git@github.com:cortext/cortext-methods.git
 
-echo "Rappel de l'ajout dans le DNS local"
+echo "3.7 Rappel de l'ajout dans le DNS local"
 echo MsgBox ^"Ne pas oublier d'ajouter la ligne suivante :^" ^& Chr(10) ^& Chr(10) ^& ^"127.0.0.1 auth.cortext.dev assets.cortext.dev cortext.dev www.cortext.dev documents.cortext.dev manager.cortext.dev^" ^& Chr(10) ^& Chr(10)^& ^"dans le fichier c:\windows\system32\drivers\etc\hosts^" > tmpscript.vbs
 cscript tmpscript.vbs
 del tmpscript.vbs
+
+echo "3.8 Identification de l'installation en environnement Windows"
+echo. > win_install.flag
 
 echo "4. Téléchargement de la machine virtuelle"
 echo "Une fois la machine virtuelle démarrée, lancer la suite de l'exécution par la commande suivante:"
 echo "install_inside.sh"
 vagrant up
+
+echo MsgBox ^"Continuer l'installation dans la machine virtuelle par la commande :^" ^& Chr(10) ^& Chr(10) ^& ^"install_inside.sh^" > tmpscript.vbs
+cscript tmpscript.vbs
+del tmpscript.vbs
 vagrant ssh

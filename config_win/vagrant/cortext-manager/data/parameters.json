@@ -1,0 +1,52 @@
+{
+  "db_options": {
+         "driver" : "pdo_mysql",
+         "dbname" : "ct_manager",
+         "host" : "localhost",
+         "username" : "ct_manager",
+         "password" : ""
+      },
+  "Scripts" : {
+        "path"  :  "/vagrant/cortext-methods"
+  },
+  "Storage": {
+      "name": "Cortext Assets",
+      "api": "http://assets.cortext.dev",
+      "url": "http://assets.cortext.dev:8080",
+      "getDocument": "/docs"
+  },
+  "Identity": {
+      "name": "Cortext Auth",
+      "urlAuth": "http://auth.cortext.dev/auth",
+      "urlAccess": "http://auth.cortext.dev/auth/access",
+      "urlSubscribe": "http://auth.cortext.dev:8080/user/register",
+      "urlEdit": "http://auth.cortext.dev:8080/user",
+      "urlLogout": "http://auth.cortext.dev:8080/user/logout",
+      "urlLogin": "http://auth.cortext.dev:8080/user/login",
+      "account": {
+          "service": "cortext",
+          "clientId": "cortext-dashboard",
+          "secret": "c0rt3xt"
+      }
+  },   
+  "Api": {
+      "url": "http://127.0.0.1:3000/api",
+      "createElement": "/elements",
+      "createDocument": "/documents",
+      "createAnalysis": "/analysis"
+  },
+  "debug_mode": true,
+  "mailer": {
+    "host"       : "localhost",
+    "port"       : 25,
+    "username"   : "",
+    "password"   : "",
+    "encryption" : "",
+    "auth_mode"  : ""
+  },
+  "admin" : "root@cortext.dev",
+  "monolog": {
+    "logfile": "/../../log/cortext/manager.log",
+    "name": "Manager"
+  }
+}

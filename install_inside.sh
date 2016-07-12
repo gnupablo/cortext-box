@@ -131,7 +131,7 @@ chmod 664 cortext-assets/server/app/config.php
 
 
 tput setab 7; tput setaf 1;echo "7.7 Fichier /etc/hosts$(tput sgr 0)"
-echo "127.0.0.1 auth.cortext.dev assets.cortext.dev cortext.dev www.cortext.dev documents.cortext.dev" | sudo tee --append /etc/hosts > /dev/null
+echo "127.0.0.1 auth.cortext.dev assets.cortext.dev cortext.dev www.cortext.dev documents.cortext.dev manager.cortext.dev" | sudo tee --append /etc/hosts > /dev/null
 
 
 tput setab 7; tput setaf 1;echo "7.8 Locales$(tput sgr 0)"
@@ -149,6 +149,16 @@ sudo debconf-set-selections /home/vagrant/tmp_locales.txt
 rm /home/vagrant/tmp_locales.txt
 
 sudo dpkg-reconfigure --frontend=noninteractive locales
+
+
+if [ -e /vagrant/win_install.flag ]
+then
+  tput setab 7; tput setaf 1;echo "7.9 Fichiers de configuration pour Windows$(tput sgr 0)"
+  cd /vagrant
+  cp config_win/vagrant/cortext-manager/data/parameters.json cortext-manager/data/parameters.json
+  cp config_win/vagrant/cortext-projects/env/parameters.js cortext-projects/env/parameters.js
+  sudo cp config_win/etc/supervisord.conf /etc/
+fi
 
 
 tput setab 7; tput setaf 1;echo "8. Téléchargement des dépendances PHP$(tput sgr 0)"
