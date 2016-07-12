@@ -1,14 +1,33 @@
 Cortext Box
 ===========
 
+## git configuration on Windows
+
+On Windows, assuming that git is already installed on you're configuration, you need to configure git to manage correctly symbolic links and line feeds, in a shell window, with the commands :
+
+    git config --global core.symlinks true
+    git config --global core.autocrlf input
+    
+These parameters can also be directly modified in the config file c:\ProgramData\Git\config, in the core section, like this:
+
+    [core]
+        symlinks = false
+        autocrlf = input
+
+## install virtualbox
+
+- on ubuntu, just follow the chapter 1 of [INSTALL.txt](https://github.com/cortext/cortext-box/blob/master/INSTALL.txt)
+- on windows, install the [virtual box package](https://www.virtualbox.org/wiki/Downloads) for your platform
+
 ## install vagrant
 
 - [install vagrant on ubuntu](https://github.com/cortext/cortext-box/wiki/vagrant:-installation-on-ubuntu)
 - [install vagrant on osx]()
+- [install vagrant on Windows](https://www.vagrantup.com/downloads.html)
 
-## bootstrap the cortext-box !
+## Bootstrap the Cortext Box on Linux !
 
-Then execute these instructions to put the vagrant file on `/home/<user>/boxes/cortext-box`. Do the addition to /etc/hosts only once, if you install multiple boxes. (NB: If you're in windows, replace ./install.sh by install_win.bat)
+Then execute these instructions to put the vagrant file on `/home/<user>/boxes/cortext-box`. Do the addition to /etc/hosts only once, if you install multiple boxes.
 
     $ mkdir ~/boxes
     $ cd ~/boxes
@@ -17,12 +36,28 @@ Then execute these instructions to put the vagrant file on `/home/<user>/boxes/c
     $ ./install.sh
     $ install_inside.sh 
     $ exit
-    $ echo "127.0.0.1 auth.cortext.dev assets.cortext.dev cortext.dev www.cortext.dev documents.cortext.dev" | sudo tee --append /etc/hosts > /dev/null
+    $ echo "127.0.0.1 auth.cortext.dev assets.cortext.dev cortext.dev www.cortext.dev documents.cortext.dev manager.cortext.dev" | sudo tee --append /etc/hosts > /dev/null
     $ vagrant reload
 
 That's it !
 
 You can go to http://10.10.10.10:3000
+
+## Bootstrap the Cortext Box on Windows !
+
+Open an administrator shell window and go to the directory where you want to install cortext-box. Then execute these instructions. Do the addition to c:/windows/system32/drivers/etc/hosts only once, if you install multiple boxes.
+
+    $ git clone --recursive git@github.com:cortext/cortext-box.git
+    $ cd cortext-box
+    $ install_win.bat
+    $ install_inside.sh 
+    $ exit
+    $ echo 127.0.0.1       auth.cortext.dev assets.cortext.dev cortext.dev www.cortext.dev documents.cortext.dev manager.cortext.dev >> c:/windows/system32/drivers/etc/hosts
+    $ vagrant reload
+
+That's it !
+
+You can go to http://127.0.0.1:3000
 
 Usage
 -----
