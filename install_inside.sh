@@ -109,7 +109,7 @@ sudo chmod 644 /etc/apache2/sites-available/*.conf
 #Activation des nouveaux sites installés et désactivation du site par défaut
 
 sudo a2dissite 000-default
-sudo a2ensite assets manager documents auth
+sudo a2ensite assets manager documents auth nano
 
 
 tput setab 7; tput setaf 1;echo "7.6 Fichiers de configuration des modules Cortext$(tput sgr 0)"
@@ -155,13 +155,20 @@ tput setab 7; tput setaf 1;echo "8. Téléchargement des dépendances PHP$(tput 
 
 #Les modules Cortext se basent sur des modules PHP qu'il faut récupérer de manière automatique grâce à Composer. Chemin à adapter en fonction de l'emplacement des modules Cortext. Cette étape peut être un peu longue.
 
+tput setab 7; tput setaf 1;echo "8.1 Composer Update pour cortext-auth$(tput sgr 0)"
 cd /vagrant/cortext-auth/server
 COMPOSER_PROCESS_TIMEOUT=4000 composer update --prefer-dist
 
+tput setab 7; tput setaf 1;echo "8.2 Composer Update pour cortext-assets$(tput sgr 0)"
 cd /vagrant/cortext-assets/server
 composer update
 
+tput setab 7; tput setaf 1;echo "8.3 Composer Update pour cortext-manager$(tput sgr 0)"
 cd /vagrant/cortext-manager
+composer update
+
+tput setab 7; tput setaf 1;echo "8.3 Composer Update pour cortext-manager$(tput sgr 0)"
+cd /vagrant/nano-acp
 composer update
 
 
