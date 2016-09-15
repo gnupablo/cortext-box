@@ -56,3 +56,10 @@ CREATE TABLE IF NOT EXISTS `script` (
   `comment` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ;
+
+
+CREATE DATABASE IF NOT EXISTS `nano`;
+
+USE `nano`;
+
+GRANT ALL PRIVILEGES ON nano.* TO 'nano'@'localhost' IDENTIFIED BY '' WITH GRANT OPTION;

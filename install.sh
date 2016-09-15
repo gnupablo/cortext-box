@@ -22,6 +22,9 @@ git clone -b risis_v1 --recursive git@github.com:cortext/cortext-projects.git
 tput setab 7; tput setaf 1;echo "3.6 Cortext-methods$(tput sgr 0)"
 git clone -b risis --recursive git@github.com:cortext/cortext-methods.git
 
+tput setab 7; tput setaf 1;echo "3.7 Nano ACP$(tput sgr 0)"
+git clone -b master --recursive git@github.com:risis-eu/nano-acp.git
+
 tput setab 7; tput setaf 1;echo "4. Téléchargement de la machine virtuelle$(tput sgr 0)"
 echo "Une fois la machine virtuelle démarrée, lancer la suite de l'exécution par la commande suivante:"
 echo "install_inside.sh"

@@ -5,6 +5,7 @@
 *.box
 Vagrantfile
 dummy-data/dummy-assets.tar.gz
+nano-acp/
 
 # Modules Cortext
 /cortext-*
