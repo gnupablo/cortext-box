@@ -42,11 +42,12 @@ dashboardConfig =
     },
     common: {
         callback : "http://10.10.10.10:3000",
-        urlCGU: "http://auth.cortext.dev:8080/cgu",
+        urlCGU: "http://auth.cortext.dev:8080/conditions-generales-utilisation",
         urlCredits: "http://auth.cortext.dev:8080/credits",
         urlMentions: "http://auth.cortext.dev:8080/mentions-legales",
         urlContact: "http://www.cortext.net/contact",
         urlManagerv1: "http://manager.cortext.net",
+        analyticsID: "",
         refreshRate : 5000
     },
     design: {
