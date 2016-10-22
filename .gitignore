@@ -10,3 +10,6 @@ nano-acp/
 # Modules Cortext
 /cortext-*
 log/decode_log
+
+# Install on Windows environment
+win_install.flag

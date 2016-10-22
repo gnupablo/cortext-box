@@ -5,7 +5,7 @@ dashboardConfig =
             name: "Cortext Assets",
             url: "http://assets.cortext.dev:8080",
             getDocument: "/docs",
-            callback: "http://10.10.10.10:3000"
+            callback: "http://127.0.0.1:3000"
         },
         Identity: {
             name: "Cortext Auth",
@@ -14,7 +14,7 @@ dashboardConfig =
             urlAccess: "http://auth.cortext.dev/auth/access",
             urlSubscribe: "http://auth.cortext.dev:8080/user/register",
             urlEdit: "http://auth.cortext.dev:8080/user",
-	        callback: "http://10.10.10.10:3000",
+	        callback: "http://127.0.0.1:3000",
             account: {
                 service: "cortext",
                 clientId: "cortext-dashboard",
@@ -23,8 +23,8 @@ dashboardConfig =
         },
         Jobs: {
             name: "Cortext Manager",
-            callback: "http://10.10.10.10:3000",
-            callback_json:"http://10.10.10.10:3000/api/analysis",
+            callback: "http://127.0.0.1:3000",
+            callback_json:"http://127.0.0.1:3000/api/analysis",
             url: "http://manager.cortext.dev:8080" 
         },
         Viz: {
@@ -34,15 +34,15 @@ dashboardConfig =
             gexf: "http://documents.cortext.dev:8080/lib/mapexplorer/explorerjs.html?file="
         },
         Api: {
-            url: "http://10.10.10.10:3000/api",
+            url: "http://127.0.0.1:3000/api",
             createElement: "/elements",
             createDocument: "/documents",
             createAnalysis: "/analysis"
 	}
     },
     common: {
-        callback : "http://10.10.10.10:3000",
-        urlCGU: "http://auth.cortext.dev:8080/conditions-generales-utilisation",
+        callback : "http://127.0.0.1:3000",
+        urlCGU: "http://auth.cortext.dev:8080/cgu",
         urlCredits: "http://auth.cortext.dev:8080/credits",
         urlMentions: "http://auth.cortext.dev:8080/mentions-legales",
         urlContact: "http://www.cortext.net/contact",
@@ -51,7 +51,7 @@ dashboardConfig =
         refreshRate : 5000
     },
     design: {
-        activateHelp: false
+        activateHelp: true
     },
     mail: {
         smtp: "smtp://localhost:25"
