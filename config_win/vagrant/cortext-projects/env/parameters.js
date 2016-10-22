@@ -47,6 +47,7 @@ dashboardConfig =
         urlMentions: "http://auth.cortext.dev:8080/mentions-legales",
         urlContact: "http://www.cortext.net/contact",
         urlManagerv1: "http://manager.cortext.net",
+        analyticsID: "",
         refreshRate : 5000
     },
     design: {
