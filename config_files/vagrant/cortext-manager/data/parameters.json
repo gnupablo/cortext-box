@@ -45,6 +45,12 @@
     "auth_mode"  : ""
   },
   "admin" : "root@cortext.dev",
+  "terms":{
+        "urlCGU": "http://auth.cortext.dev:8080/cgu",
+        "urlCredits": "http://auth.cortext.dev:8080/credits",
+        "urlMentions": "http://auth.cortext.dev:8080/mentions-legales",
+        "urlContact": "http://www.cortext.net/contact"
+  },
   "monolog": {
     "logfile": "/../../log/cortext/manager.log",
     "name": "Manager"
