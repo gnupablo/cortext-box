@@ -12,6 +12,9 @@ define('URL_MANAGER','http://manager.cortext.dev');
 define('URL_FILES','http://documents.cortext.dev:8080/');
 define('URL_HTTP_HOST_EXTERNAL','http://assets.cortext.dev:8080');
 define('URL_CGU','http://auth.cortext.dev:8080/cgu');
+define("URL_Credits", "http://auth.cortext.dev:8080/credits");
+define("URL_Mentions", "http://auth.cortext.dev:8080/mentions-legales");
+define("URL_Contact", "http://www.cortext.net/contact");
 
 //debug
 define('APP_DEBUG', true);
