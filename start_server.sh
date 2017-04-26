@@ -8,6 +8,7 @@ if [ -e /usr/local/bin/composer -a -e /etc/supervisord.conf ]
 then
    sudo service apache2 restart
    supervisord -u vagrant -q /vagrant/log/supervisor
+   screen -dmS cortext -c /home/vagrant/.screenrc-multi
 else
    echo "Cette machine semble neuve. Pour l'installer:"
    echo "install_inside.sh"

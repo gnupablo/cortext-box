@@ -12,3 +12,6 @@ log/decode_log
 
 # Install on Windows environment
 win_install.flag
+
+#config perso
+Vagrantfile.phil
