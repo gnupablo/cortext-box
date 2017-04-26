@@ -90,6 +90,8 @@ tput setab 7; tput setaf 1;echo "7.4 Fichiers de configuration du shell$(tput sg
 cd /vagrant/config_files/
 cp home/vagrant/.bashrc /home/vagrant/.bashrc
 cp home/vagrant/.bash_aliases /home/vagrant/.bash_aliases
+cp home/vagrant/.screenrc /home/vagrant/.screenrc
+cp home/vagrant/.screenrc-multi /home/vagrant/.screenrc-multi
 chmod 644 /home/vagrant/.bash_aliases
 sudo cp root/.bashrc /root/.bashrc
 sh /home/vagrant/.bashrc

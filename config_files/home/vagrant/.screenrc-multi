@@ -1,0 +1,8 @@
+# read in your normal screenrc
+# before anything else
+chdir $HOME
+source $HOME/.screenrc
+# now start opening windows
+screen -t logs /vagrant/log/check_log.sh
+screen -t htop htop
+screen bash

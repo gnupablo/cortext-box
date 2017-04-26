@@ -1,0 +1,9 @@
+bind " " other
+escape !!
+#hardstatus alwayslastline
+#hardstatus string "%H  %w%=%c"
+hardstatus alwayslastline "%{b kw}%H %{r}%1` %{w}| %{g}%c %{w}| %{y}%d.%m.%Y %{w}| %{g}%l %{w}| %{-b kw}%u %-Lw%{= rW}%50> %n%f %t %{-}%+Lw%<"
+startup_message off
+defc1 off
+defutf8 on
+defscrollback 10000
