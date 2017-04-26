@@ -10,6 +10,7 @@ $fond_rouge = "\033[41m";
 $texte_blanc = "\033[37m";
 $texte_rouge = "\033[31m";
 $texte_bleu = "\033[1;36m";
+$texte_bleu_fonce="\033[00;34m";
 $texte_vert = "\033[32m";
 $texte_orange = "\033[33m";
 $texte_vert_clair = "\033[92m";
@@ -32,7 +33,7 @@ function isHTML( $string ) {
 function outputJSON( $tableau, $dec = "" ) {
     global $tab, $fond_vert, $texte_blanc, $texte_rouge, $texte_vert, $texte_orange, $underline, $reset_color;
     $dec = $tab.$dec;
-    echo PHP_EOL;
+    //echo PHP_EOL;
     foreach( $tableau as $key => $val ) {
         if ( gettype( $val ) !== "array" ) {
             switch($key) {
@@ -45,23 +46,33 @@ function outputJSON( $tableau, $dec = "" ) {
                 } else {
                     // Message standard
                     if ( strlen( $val ) && substr_compare( $val, "------------ ", 0, 13 ) == 0 )
-                        echo $tab.$texte_orange.$key.":".$reset_color." ".substr( strip_tags($val), 13 ).PHP_EOL;
+                        echo $tab.$texte_orange.$key.":".$reset_color." ".substr( strip_tags($val), 13 ).$tab;
                     else
-                        echo $tab.$texte_orange.$key.":".$reset_color." ".strip_tags(@print_r($val,true)).PHP_EOL;
+                        echo $tab.$texte_orange.$key.":".$reset_color." ".strip_tags(@print_r($val,true)).$tab;
                 }
                 //print_r($job);
                 break;
             case ("running"):
             case ("signaled"):
             case ("stopped") :
-                echo $dec.$texte_orange.$key.": ".$reset_color.($val?"true":"false").PHP_EOL;
+                echo $dec.$texte_orange.$key.": ".$reset_color.($val?"true":"false").$tab;
                 break;
             case ("watchpoint"):
+                $val = explode("/", $val);
+                if(is_array($val)){
+                    $val = array_reverse($val);
+                    $val = $val[0]; //si le watchpoint est un chemin on prend uniquement le nom du fichier
+                }
+                    
+                echo $dec.$texte_orange.$key.": ".$reset_color.$val.$tab;
+                break;
             case ("tag"):
+                echo "";
+                break;
             case ("pid"):
             case ("job_id"):
             default:
-                echo $dec.$texte_orange.$key.": ".$reset_color.$val.PHP_EOL;
+                echo $dec.$texte_orange.$key.": ".$reset_color.$val.$tab;
             }
         } else {
             switch($key) {
@@ -70,25 +81,26 @@ function outputJSON( $tableau, $dec = "" ) {
             case ("result"):
             case ("status"):
                 if ( is_array( $val ) ) {
-                    echo $dec.$texte_orange.$key.": ".$reset_color.PHP_EOL;
+                    echo $dec.$texte_orange.$key.": ".$reset_color.$tab;
                     foreach( $val as $k => $v ) {
                         if ( is_array( $v ) ) {
-                            echo $dec.$tab."[".$k."] => ".print_r($v,true).PHP_EOL;
+                            echo $dec.$tab."[".$k."] => ".print_r($v,true).$tab;
                         } else if ( is_bool( $v ) ) {
-                            echo $dec.$tab."[".$k."] => ".($v?"true":"false").PHP_EOL;
+                            echo $dec.$tab."[".$k."] => ".($v?"true":"false").$tab;
                         } else {
-                            echo $dec.$tab."[".$k."] => ".$v.PHP_EOL;
+                            echo $dec.$tab."[".$k."] => ".$v.$tab;
                         }
                     }
                 } else {
-                    echo $dec.$texte_orange.$key.": ".$reset_color.$val.PHP_EOL;
+                    echo $dec.$texte_orange.$key.": ".$reset_color.$val.$tab;
                 }
                 break;
             default:
-                echo $dec.$texte_orange.$key.": ".$reset_color.@print_r($val,true).PHP_EOL;
-            }
+                echo $dec.$texte_orange.$key.": ".$reset_color.@print_r($val,true).$tab;
+            }  
         }
     }
+    echo PHP_EOL;
 }
 
 while($f = fgets(STDIN)){
@@ -126,7 +138,7 @@ while($f = fgets(STDIN)){
         if ( preg_match( $pattern, $f, $result ) ) {
             // Horodatage
             echo PHP_EOL.$fond_date.$result[1].$reset_color.$tab
-                . $texte_vert.$underline.$result[2].$texte_bleu." [".$result[3]."]".$reset_color;
+                . $texte_vert.$result[2].$texte_bleu." [".$result[3]."]".$reset_color;
 
             $msg = json_decode( $result[4], true );
 
@@ -136,7 +148,7 @@ while($f = fgets(STDIN)){
 
             } else {
                 // On a du JSON, alors on décode
-                outputJSON( $msg, "\t" );
+                outputJSON( $msg, " | " );
             }
         } else {
             // Essai de parsing de la date seule
@@ -147,14 +159,22 @@ while($f = fgets(STDIN)){
                 //trying apache
                 $pattern = '/^(\S+) (\S+) (\S+) \[([^:]+):(\d+:\d+:\d+) ([^\]]+)\] (.*)$/';
                 if(preg_match($pattern, $f, $result)){
-                echo PHP_EOL.$fond_date."[".$result[4]." ".$result[5]. " ".$result[6]."] - ".$reset_color.$tab.$result[7].$reset_color;
-            }else{
-                // La ligne ne correspond pas au format, on la sort normalement
-                echo $fond_date.date("[? Y-m-d H:i:s] ").$reset_color.$tab.$f.$reset_color;    
-            }
+                    echo PHP_EOL.$fond_date."[".$result[4]." ".$result[5]. " ".$result[6]."] - ".$reset_color.$tab.$result[7].$reset_color;
+                }else{
+                    //trying meteor
+                    $pattern = '/I(\d{4})(\d{2})(\d{2})-([^\.]+)\.([^\?]*)\?(.*)/';
+                    if(preg_match($pattern, $f, $result)){
+                        //echo "match ".print_r($result, true);
+                        echo PHP_EOL.$fond_date."[".$result[1]."-".$result[2]."-".$result[3]." ".$result[4]."]".$tab.$reset_color.$texte_bleu_fonce ." PROJECTS -".$result[6].$reset_color;
+                    }else{
+                        // La ligne ne correspond pas au format, on la sort normalement si le message n'est pas vide
+                        if(trim($f)!=""){
+                            echo PHP_EOL.$fond_date.date("[Y-m-d H:i:s] (?) ").$reset_color.$tab."--".$f."--".$reset_color;
+                        }
+                    }
+                }
                 
             }
-            
         } 
     }//fin if jobId
     
